@@ -1,19 +1,19 @@
 import connectMongo from '../utils/connectMongo';
 import User from '../models/userModel';
 
-import { Box } from "@chakra-ui/react";
-import { normalizeRepeatedSlashes } from 'next/dist/shared/lib/utils';
+import { LoginBtn } from '../components/loginBtn';
+
+import { Box, Button } from "@chakra-ui/react";
 
 export default function Home({ users }) {
+  console.log( users );
+
   return(
-    <Box display='grid' gridTemplateColumns='1fr 1fr 1fr'>
-      {
-        users.map(( user ) => {
-          return <Box key={ user._id } color='red' borderWidth='1px' borderRadius='lg' borderColor='red'>
-            { user.displayName }
-          </Box>
-        })
-      }
+    <Box display='flex' flexDir='column'>
+      <Box color='red'>
+        { `There is ${ users.length } users found.` }
+      </Box>
+      <LoginBtn/>
     </Box>
   );
 };

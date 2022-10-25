@@ -1,11 +1,7 @@
 import { Schema, model, models } from 'mongoose';
 
 const UserSchema = new Schema({
-  facebookId: {
-    type: String,
-    required: true
-  },
-  displayName: {
+  name: {
     type: String,
   },
   friends: [{
@@ -29,8 +25,11 @@ const UserSchema = new Schema({
   gender: {
     type: String
   },
-  defaultPic: {
+  image: {
     type: String
+  },
+  email: {
+    type: String,
   }
 });
 
