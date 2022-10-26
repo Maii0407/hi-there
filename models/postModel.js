@@ -13,7 +13,7 @@ const PostSchema = new Schema({
   date: {
     type: Date
   },
-  imageContent: {
+  image: {
     type: String
   },
   likes: [{

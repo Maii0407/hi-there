@@ -22,7 +22,7 @@ export const Navbar = () => {
   const links = [
     {
       name: 'Home',
-      href: 'home'
+      href: ''
     },
     {
       name: 'Profile',
@@ -36,6 +36,18 @@ export const Navbar = () => {
       name: 'Menu',
       href: 'menu'
     },
+    {
+      name: 'Friend List',
+      href: 'friendlist'
+    },
+    {
+      name: 'Requests Received',
+      href: 'requests'
+    },
+    {
+      name: 'Logout',
+      href: 'logout'
+    }
   ]
   
   if( session ) {
@@ -88,6 +100,7 @@ export const Navbar = () => {
                     >
                       <Link
                         color={ 'red.500' }
+                        onClick={ isOpen ? onClose : onOpen }
                       >
                         { link.name }
                       </Link>

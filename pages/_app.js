@@ -1,4 +1,5 @@
 import { SessionProvider } from 'next-auth/react';
+
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 import { Layout } from '../components/Layout';

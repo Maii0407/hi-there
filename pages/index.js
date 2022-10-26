@@ -3,7 +3,7 @@ import { useSession, signIn, signOut, getProviders } from 'next-auth/react';
 //import connectMongo from '../utils/connectMongo';
 //import User from '../models/userModel';
 
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 
 export default function Home({ providers }) {
   const { data: session } = useSession();
@@ -16,6 +16,9 @@ export default function Home({ providers }) {
         display={ 'flex' }
         color={ 'red.500' }
       >
+        <Text>
+          Home
+        </Text>
         <Button
           onClick={ () => signOut()}
           color={ 'red.500' }
@@ -30,22 +33,37 @@ export default function Home({ providers }) {
   }
 
   return(
-    <Box>
-      {
-        Object.values( providers ).map(( provider ) => {
-          return(
-            <Box key={ provider.name }>
-              <Button
-                onClick={ () => signIn( provider.id, { callbackUrl: 'http://localhost:3000' } )}
-                color={ 'red.500' }
-                bgColor={ 'black' }
-              >
-                Login in with { provider.name }
-              </Button>
-            </Box>
-          )
-        })
-      }
+    <Box
+      position={ 'fixed' }
+      width={ '100%' }
+      height={ '100%' }
+      display={ 'flex' }
+      justifyContent={ 'center' }
+      alignItems={ 'center' }
+    >
+      <Box
+        borderWidth={ '5px' }
+        borderColor={ 'red.500' }
+        borderStyle={ 'double' }
+        borderRadius={ '5px' }
+        padding={ '10px 20px' }
+      >
+        {
+          Object.values( providers ).map(( provider ) => {
+            return(
+              <Box key={ provider.name }>
+                <Button
+                  onClick={ () => signIn( provider.id, { callbackUrl: 'http://localhost:3000' } )}
+                  color={ 'red.500' }
+                  bgColor={ 'black' }
+                >
+                  Login in with { provider.name }
+                </Button>
+              </Box>
+            )
+          })
+        }
+      </Box>
     </Box>
   )
 };
