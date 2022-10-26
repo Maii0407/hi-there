@@ -10,8 +10,24 @@ export const authOptions = {
     FacebookProvider({
       clientId: process.env.PASS_FACEBOOK_ID,
       clientSecret: process.env.PASS_FACEBOOK_SECRET,
+      profile( profile ) {
+        return {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture.data.url,
+          friends: [],
+          requestsReceived: [],
+          requestsSent: [],
+          profileBio: '',
+          gender: ''
+        }
+      }
     })
   ],
+  pages: {
+    signIn: '/index',
+  },
   adapter: MongoDBAdapter( clientPromise ),
 };
 
