@@ -10,10 +10,11 @@ import {
   Text,
   Avatar,
   Link,
-  Stack
+  Stack,
+  Button
 } from '@chakra-ui/react';
 
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
 export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,6 +76,20 @@ export const Navbar = () => {
           >
             hiTHERE
           </Text>
+          <NextLink
+            href={ '/newpost' }
+            passHref
+          >
+            <Button
+              as={ 'a' }
+              leftIcon={ <AddIcon/> }
+              color={ 'gray.900' }
+              size={ 'sm' }
+              backgroundColor={ 'red.500' }
+            >
+              Post
+            </Button>
+          </NextLink>
           <Avatar
             size={ 'sm' }
             name={ session.user.name }
