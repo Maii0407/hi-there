@@ -5,10 +5,11 @@ import { useSession, signIn, signOut, getProviders } from 'next-auth/react';
 
 import { Box, Button, Text } from "@chakra-ui/react";
 
+//TODO complete this
+//show posts by friends and user
+//TODO seed fake users
 export default function Home({ providers }) {
   const { data: session } = useSession();
-
-  console.log( 'session', session );
 
   if( session ) {
     return(

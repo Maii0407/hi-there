@@ -1,28 +1,28 @@
 import connectMongo from '../../../utils/connectMongo';
-import Post from '../../../models/postModel';
+import Comment from '../../../models/commentModel';
 
 import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 
-export default async function addPost( req, res ) {
+export default async function addComment( req, res ) {
   const session = await unstable_getServerSession( req, res, authOptions );
 
   if( session ) {
     try {
       await connectMongo();
 
-      const newPost = new Post({
+      const newComment = new Comment({
         content: req.body.content,
-        image: req.body.image,
         date: new Date(),
-        user: req.body.user
+        user: req.user.id, //TODO change this
+        post: req.params.postId //TODO change this
       });
 
-      newPost.save();
+      newComment.save();
 
       return res.status( 200 ).json({
-        message: 'post created',
-        newPost
+        message: 'comment created',
+        newComment
       });
     }
     catch( error ) {

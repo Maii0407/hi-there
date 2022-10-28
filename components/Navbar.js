@@ -38,7 +38,8 @@ export const Navbar = () => {
         withCredentials: true,
         data: {
           content: postContent,
-          image: ''
+          image: '',
+          user: session.user.id
         },
       });
   

@@ -1,28 +1,26 @@
 import connectMongo from '../../../utils/connectMongo';
-import Post from '../../../models/postModel';
+import Comment from '../../../models/commentModel';
 
 import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 
-export default async function addPost( req, res ) {
+export default async function unlikeComment( req, res ) {
   const session = await unstable_getServerSession( req, res, authOptions );
 
   if( session ) {
     try {
       await connectMongo();
 
-      const newPost = new Post({
-        content: req.body.content,
-        image: req.body.image,
-        date: new Date(),
-        user: req.body.user
+      const unlikedComment = await Comment.updateOne({
+        _id: req.params.commentId //TODO change this
+      },
+      {
+        $pull: { likes: { $in: [ req.user.id ] } } //TODO change this
       });
-
-      newPost.save();
-
+  
       return res.status( 200 ).json({
-        message: 'post created',
-        newPost
+        message: 'unlike success',
+        unlikedComment
       });
     }
     catch( error ) {

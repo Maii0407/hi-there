@@ -1,29 +1,30 @@
 import connectMongo from '../../../utils/connectMongo';
-import Post from '../../../models/postModel';
+import User from '../../../models/userModel';
 
 import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 
-export default async function addPost( req, res ) {
+export default async function addComment( req, res ) {
   const session = await unstable_getServerSession( req, res, authOptions );
 
   if( session ) {
     try {
       await connectMongo();
 
-      const newPost = new Post({
-        content: req.body.content,
-        image: req.body.image,
-        date: new Date(),
-        user: req.body.user
+      const user = await User.updateOne({
+        _id: req.user.id //TODO change this
+      },
+      {
+        $pull: { requestsReceived: { $in: [ req.params.strangerId ] } } //TODO change this
       });
-
-      newPost.save();
-
-      return res.status( 200 ).json({
-        message: 'post created',
-        newPost
+  
+      const stranger = await User.updateOne({
+        _id: req.params.strangerId //TODO change this
+      },{
+        $pull: { requestsSent: { $in: [ req.user.id ] } } //TODO change this
       });
+  
+      return res.status( 200 ).json({ message: 'request rejected' });
     }
     catch( error ) {
       console.log( error );
