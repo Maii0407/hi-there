@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
+import axios from 'axios';
+
+import { links } from './pageLinkData';
 
 import {
   Box,
@@ -11,45 +14,45 @@ import {
   Avatar,
   Link,
   Stack,
-  Button
+  Button,
+  FormControl,
+  Textarea
 } from '@chakra-ui/react';
 
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
 export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [ formOpen, setFormOpen ] = useState( false );
+
+  const [ postContent, setPostContent ] = useState('');
+
   const { data: session } = useSession();
 
-  const links = [
-    {
-      name: 'Home',
-      href: ''
-    },
-    {
-      name: 'Profile',
-      href: 'profile'
-    },
-    {
-      name: 'Discover',
-      href: 'discover'
-    },
-    {
-      name: 'Menu',
-      href: 'menu'
-    },
-    {
-      name: 'Friend List',
-      href: 'friendlist'
-    },
-    {
-      name: 'Requests Received',
-      href: 'requests'
-    },
-    {
-      name: 'Logout',
-      href: 'logout'
+  //this function handles if form is submitted
+  const handleClick = async () => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: '/api/post/create',
+        withCredentials: true,
+        data: {
+          content: postContent,
+          image: ''
+        },
+      });
+  
+      console.log( response.data );
+      return response.data;
     }
-  ]
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      setPostContent('');
+      setFormOpen( false );
+    }
+  };
   
   if( session ) {
     return (
@@ -76,20 +79,15 @@ export const Navbar = () => {
           >
             hiTHERE
           </Text>
-          <NextLink
-            href={ '/newpost' }
-            passHref
+          <Button
+            leftIcon={ <AddIcon/> }
+            color={ 'gray.900' }
+            size={ 'sm' }
+            backgroundColor={ 'red.500' }
+            onClick={ () => setFormOpen( true ) }
           >
-            <Button
-              as={ 'a' }
-              leftIcon={ <AddIcon/> }
-              color={ 'gray.900' }
-              size={ 'sm' }
-              backgroundColor={ 'red.500' }
-            >
-              Post
-            </Button>
-          </NextLink>
+            Post
+          </Button>
           <Avatar
             size={ 'sm' }
             name={ session.user.name }
@@ -123,6 +121,73 @@ export const Navbar = () => {
                   })
                 }
               </Stack>
+            </Box>
+          ) : null
+        }
+
+        {
+          formOpen ? (
+            <Box
+              position={ 'fixed' }
+              height={ '100%' }
+              width={ '100%' }
+              backgroundColor={ 'gray.900' }
+              zIndex={ '1' }
+              top={ '0' }
+              right={ '0' }
+            >
+              <Box
+                borderBottom={ '1px' }
+                borderColor={ 'red.500' }
+              >
+                <IconButton
+                  icon={ <CloseIcon/> }
+                  backgroundColor={ 'transparent' }
+                  color={ 'red.500' }
+                  onClick={ () => setFormOpen( false ) }
+                />
+              </Box>
+              <Flex
+                direction={ 'row' }
+                padding={ '10px 20px' }
+              >
+                <Avatar
+                  src={ session.user.image }
+                  alt={ session.user.name }
+                  size={ 'md' }
+                />
+                <Button
+                  backgroundColor={ 'transparent' }
+                  color={ 'red.500' }
+                >
+                  { session.user.name }
+                </Button>
+              </Flex>
+              <FormControl
+                display={ 'flex' }
+                flexDirection={ 'column' }
+                alignItems={ 'center' }
+                padding={ '10px' }
+              >
+                <Textarea
+                  placeholder={ `What's on your mind?` }
+                  color={ 'red.500' }
+                  resize={ 'vertical' }
+                  borderColor={ 'red.500' }
+                  borderRadius={ '0' }
+                  value={ postContent }
+                  onChange={ ( e ) => setPostContent( e.target.value ) }
+                />
+                <Button
+                  color={ 'gray.900' }
+                  backgroundColor={ 'red.500' }
+                  size={ 'md' }
+                  padding={ '0 30px' }
+                  onClick={ () => handleClick() }
+                >
+                  Post
+                </Button>
+              </FormControl>
             </Box>
           ) : null
         }

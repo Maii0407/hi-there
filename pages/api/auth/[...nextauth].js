@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import clientPromise from '../../../utils/mongodb';
-import connectMongo from '../../../utils/connectMongo';
 
 import FacebookProvider from 'next-auth/providers/facebook';
 
@@ -29,6 +28,19 @@ export const authOptions = {
     signIn: '/index',
   },
   adapter: MongoDBAdapter( clientPromise ),
+  callbacks: {
+    session: async ({ session, user }) => {
+      return {
+        ...session,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          image: user.image
+        },
+      };
+    },
+  }
 };
 
 export default NextAuth( authOptions );

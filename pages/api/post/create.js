@@ -13,17 +13,17 @@ export default async function addPost( req, res ) {
     try {
       await connectMongo();
 
-      const currentUser = await User.find({
-        name: session.user.name,
-        image: session.user.image,
-        email: session.user.email
-      });
+      //const currentUser = await User.find({
+      //  name: session.user.name,
+      //  image: session.user.image,
+      //  email: session.user.email
+      //});
 
       const newPost = new Post({
         content: req.body.content,
         image: req.body.image,
         date: new Date(),
-        user: currentUser.id
+        user: session.user.id
       });
 
       newPost.save();
