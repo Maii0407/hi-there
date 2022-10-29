@@ -4,31 +4,38 @@ import Post from '../../../models/postModel';
 import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 
-export default async function addPost( req, res ) {
+export default async function handler( req, res ) {
   const session = await unstable_getServerSession( req, res, authOptions );
 
   if( session ) {
     try {
-      await connectMongo();
+      if( req.method === 'POST' ) {
+        await connectMongo();
 
-      const newPost = new Post({
-        content: req.body.content,
-        image: req.body.image,
-        date: new Date(),
-        user: req.body.user
-      });
+        const newPost = new Post({
+          content: req.body.content,
+          image: req.body.image,
+          date: new Date(),
+          user: req.body.user
+        });
 
-      newPost.save();
+        newPost.save();
 
-      return res.status( 200 ).json({
-        message: 'post created',
-        newPost
-      });
+        return res.status( 200 ).json({
+          message: 'post created',
+          newPost
+        });
+      }
+      else {
+        return res.status( 500 ).json({
+          message: '/api/post/create only handles POST requests',
+        });
+      }
     }
     catch( error ) {
       console.log( error );
       res.status( 500 ).json({
-        message: 'error in addPost',
+        message: 'error in /api/post/create',
         error
       });
     }

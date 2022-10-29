@@ -4,29 +4,37 @@ import User from '../../../models/userModel';
 import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 
-export default async function addComment( req, res ) {
+export default async function handler( req, res ) {
   const session = await unstable_getServerSession( req, res, authOptions );
 
   if( session ) {
     try {
-      await connectMongo();
+      if( req.method === 'PUT' ) {
+        await connectMongo();
 
-      const user = await User.updateOne({
-        _id: req.user.id //TODO change this
-      },
-      {
-        image: req.body.defaultPic,
-        name: req.body.displayName,
-        profileBio: req.body.profileBio,
-        gender: req.body.gender
-      });
+        const user = await User.updateOne({
+          _id: req.user.id //TODO change this
+        },
+        {
+          image: req.body.defaultPic,
+          name: req.body.displayName,
+          profileBio: req.body.profileBio,
+          gender: req.body.gender
+        });
 
-      return res.status( 200 ).json({ message: 'update success' });
+        return res.status( 200 ).json({ message: 'update success' });
+      }
+      else {
+        return res.status( 500 ).json({
+          message: '/api/user/update only handles PUT requests'
+        });
+      }
+      
     }
     catch( error ) {
       console.log( error );
       res.status( 500 ).json({
-        message: 'error in addPost',
+        message: 'error in /api/user/update',
         error
       });
     }
