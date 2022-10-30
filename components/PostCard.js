@@ -30,10 +30,14 @@ export const PostCard = ({ postData }) => {
         <Text>
           { postData.content }
         </Text>
-        <Image
-          src={ postData.image }
-          alt='post image content'
-        />
+        {
+          postData.image ? (
+            <Image
+              src={ postData.image }
+              alt='post image content'
+            />
+          ) : null
+        }
       </Box>
 
       <Box>

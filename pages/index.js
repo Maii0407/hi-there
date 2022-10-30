@@ -1,35 +1,36 @@
 import { useSession, signIn, signOut, getProviders } from 'next-auth/react';
 
-//import connectMongo from '../utils/connectMongo';
-//import User from '../models/userModel';
+import connectMongo from '../utils/connectMongo';
+import Post from '../models/postModel';
 
-import { Box, Button, Text } from "@chakra-ui/react";
+import { PostCard } from '../components/PostCard';
+import {
+  Box,
+  Button,
+  Text,
+  Flex
+} from "@chakra-ui/react";
 
 //TODO complete this
 //show posts by friends and user
-//TODO seed fake users
-export default function Home({ providers }) {
+export default function Home({ providers, posts }) {
   const { data: session } = useSession();
+
+  console.log( posts );
 
   if( session ) {
     return(
-      <Box
-        display={ 'flex' }
+      <Flex
+        direction={ 'column' }
         color={ 'red.500' }
       >
-        <Text>
-          Home
-        </Text>
-        <Button
-          onClick={ () => signOut()}
-          color={ 'red.500' }
-          bgColor={ 'blackAlpha.500' }
-          borderWidth={ '1px' }
-          borderColor={ 'red.500' }
-        >
-          Im Out
-        </Button>
-      </Box>
+        {
+          // posts.map((post) => {
+          //   return <PostCard key={ post._id } postData={ post } />
+          // })
+        }
+        home
+      </Flex>
     )
   }
 
@@ -70,18 +71,34 @@ export default function Home({ providers }) {
 };
 
 export async function getServerSideProps( context ) {
-  const providers = await getProviders();
+  try {
+    const providers = await getProviders();
 
-  return {
-    props: { providers },
+    await connectMongo();
+
+    const posts = await Post.find().sort({ date: -1 });
+
+    return {
+      props: { 
+        providers,
+        posts: JSON.parse( JSON.stringify( posts ))
+      },
+    }
+  }
+  catch( error ) {
+    console.log( error );
+    return {
+      notFound: true,
+    }
   }
 };
-//export async function getServerSideProps() {
+
+// export async function getServerSideProps() {
 //  try {
 //    await connectMongo();
-//
+
 //    const users = await User.find();
-//
+
 //    return {
 //      props: {
 //        users: JSON.parse( JSON.stringify( users )),
@@ -94,4 +111,4 @@ export async function getServerSideProps( context ) {
 //      notFound: true,
 //    };
 //  }
-//};
+// };
