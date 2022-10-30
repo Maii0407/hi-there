@@ -2,6 +2,7 @@ import { useSession, signIn, signOut, getProviders } from 'next-auth/react';
 
 import connectMongo from '../utils/connectMongo';
 import Post from '../models/postModel';
+import User from '../models/userModel';
 
 import { PostCard } from '../components/PostCard';
 import {
@@ -25,9 +26,9 @@ export default function Home({ providers, posts }) {
         color={ 'red.500' }
       >
         {
-          // posts.map((post) => {
-          //   return <PostCard key={ post._id } postData={ post } />
-          // })
+          posts.map((post) => {
+            return <PostCard key={ post._id } postData={ post } />
+          })
         }
         home
       </Flex>
@@ -76,7 +77,8 @@ export async function getServerSideProps( context ) {
 
     await connectMongo();
 
-    const posts = await Post.find().sort({ date: -1 });
+    const posts = await Post.find().sort({ date: -1 })
+      .populate({ path: 'user', model: User });
 
     return {
       props: { 

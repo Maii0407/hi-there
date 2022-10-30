@@ -4,6 +4,8 @@
 
 // import { faker } from '@faker-js/faker';
 
+//TODO fix this post content and image is not random
+
 // export default async function handler( req, res ) {
 //   try {
 //     if( req.method === 'POST' ) {
