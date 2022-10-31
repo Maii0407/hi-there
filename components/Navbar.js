@@ -63,12 +63,9 @@ export const Navbar = () => {
         borderColor={ 'red.500' }
         borderStyle={ 'double' }
         backgroundColor={ 'gray.900' }
-        position={ 'fixed' }
-        width={ '100%' }
+        position={ 'sticky' }
         top={ '0' }
-        left={ '0' }
-        zIndex={ '1' }
-        height={ '66px' }
+        zIndex={ '5' }
       >
         <Flex
           h={ 16 }

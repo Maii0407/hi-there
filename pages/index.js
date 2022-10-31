@@ -1,5 +1,7 @@
-import { useSession, signIn, signOut, getProviders } from 'next-auth/react';
+import { useSession, signIn, getProviders } from 'next-auth/react';
+//import { unstable_getServerSession } from 'next-auth';
 
+//import { authOptions } from './api/auth/[...nextauth]';
 import connectMongo from '../utils/connectMongo';
 import Post from '../models/postModel';
 import User from '../models/userModel';
@@ -8,25 +10,29 @@ import { PostCard } from '../components/PostCard';
 import {
   Box,
   Button,
-  Text,
   Flex
 } from "@chakra-ui/react";
 
-//TODO complete the fitering of posts
-//show posts by friends and user
 export default function Home({ providers, posts }) {
   const { data: session } = useSession();
 
-  console.log( posts );
-
   if( session ) {
+  //this logic filters index posts to show only posts from user and user.friends
+    const userAndFriend = [ session.user.id ];
+
+    session.user.friends.forEach( ( friend ) => {
+      userAndFriend.push( friend._id );
+    });
+
+    const filteredPosts = posts.filter( post  =>  userAndFriend.includes( post.user._id ));
+
     return(
       <Flex
         direction={ 'column' }
         color={ 'red.500' }
       >
         {
-          posts.map((post) => {
+          filteredPosts.map((post) => {
             return <PostCard key={ post._id } postData={ post } />
           })
         }
@@ -80,7 +86,7 @@ export async function getServerSideProps( context ) {
       .populate({ path: 'user', model: User });
 
     return {
-      props: { 
+      props: {
         providers,
         posts: JSON.parse( JSON.stringify( posts ))
       },
@@ -93,23 +99,3 @@ export async function getServerSideProps( context ) {
     }
   }
 };
-
-// export async function getServerSideProps() {
-//  try {
-//    await connectMongo();
-
-//    const users = await User.find();
-
-//    return {
-//      props: {
-//        users: JSON.parse( JSON.stringify( users )),
-//      }
-//    };
-//  }
-//  catch( error ) {
-//    console.log( error );
-//    return {
-//      notFound: true,
-//    };
-//  }
-// };
