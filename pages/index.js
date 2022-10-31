@@ -12,7 +12,7 @@ import {
   Flex
 } from "@chakra-ui/react";
 
-//TODO complete this
+//TODO complete the fitering of posts
 //show posts by friends and user
 export default function Home({ providers, posts }) {
   const { data: session } = useSession();
@@ -30,7 +30,6 @@ export default function Home({ providers, posts }) {
             return <PostCard key={ post._id } postData={ post } />
           })
         }
-        home
       </Flex>
     )
   }

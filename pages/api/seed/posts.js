@@ -4,8 +4,6 @@
 
 // import { faker } from '@faker-js/faker';
 
-//TODO fix this post content and image is not random
-
 // export default async function handler( req, res ) {
 //   try {
 //     if( req.method === 'POST' ) {
@@ -15,11 +13,15 @@
 //       const fakeUsersList = await User.find({ email: 'FAKEuser@fakerJS.com' });
 
 //       for( let i = 0; i < fakeUsersList.length; i++ ) {
+//         let fakeImageContent = faker.image.image( 500, 500, true );
+//         let fakeContent = faker.lorem.sentences(2);
+//         let fakeDate = faker.date.past(3);
+
 //         const newFakePost = new Post({
 //           user: fakeUsersList[i].id,
-//           content: faker.lorem.sentences(2),
-//           date: new Date(),
-//           image: faker.image.imageUrl(),
+//           content: fakeContent,
+//           date: fakeDate,
+//           image: fakeImageContent,
 //           likes: []
 //         });
 

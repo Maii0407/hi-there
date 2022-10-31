@@ -2,32 +2,43 @@ import React from 'react';
 
 import {
   Avatar,
-  Box,
   Flex,
   Text,
   Image,
   Button
 } from '@chakra-ui/react';
 
-//TODO finish this
-//image for post image must have a fallback so if post containt no image than return nothing
-//use function
 export const PostCard = ({ postData }) => {
   return (
     <Flex
       direction={ 'column' }
+      margin={ '10px 0' }
+      backgroundColor={ 'gray.900' }
     >
-      <Box>
+      <Flex
+        direction={ 'row' }
+        padding={ '10px' }
+        borderBottom={ '1px solid' }
+        borderColor={ 'red.500' }
+      >
         <Avatar
           src={ postData.user.image }
         />
-        <Text>
+        <Button
+          size={ 'sm' }
+          backgroundColor={ 'transparent' }
+          onClick={ () => console.log( postData.user.name ) }
+        >
           { postData.user.name }
-        </Text>
-      </Box>
+        </Button>
+      </Flex>
 
-      <Box>
-        <Text>
+      <Flex
+        direction={ 'column' }
+      >
+        <Text
+          padding={ '5px 10px' }
+        >
           { postData.content }
         </Text>
         {
@@ -38,25 +49,59 @@ export const PostCard = ({ postData }) => {
             />
           ) : null
         }
-      </Box>
+      </Flex>
 
-      <Box>
-        <Button>
-          Likes Number
+      <Flex
+        direction={ 'row' }
+        justifyContent={ 'space-between' }
+        padding={ '10px 10px' }
+        borderBottom={ '1px' }
+        borderColor={ 'red.500' }
+      >
+        <Button
+          size={ 'sm' }
+          backgroundColor={ 'transparent' }
+          borderWidth={ '1px' }
+          borderColor={ 'red.500' }
+          onClick={ () => console.log( postData ) }
+        >
+          Likes Num
         </Button>
-        <Button>
-          Comments Number
+        <Button
+          size={ 'sm' }
+          backgroundColor={ 'transparent' }
+          borderWidth={ '1px' }
+          borderColor={ 'red.500' }
+          onClick={ () => console.log( postData ) }
+        >
+          Comments Num
         </Button>
-      </Box>
+      </Flex>
 
-      <Box>
-        <Button>
+      <Flex
+        direction={ 'row' }
+        justifyContent={ 'space-between' }
+        padding={ '10px 10px' }
+      >
+        <Button
+          size={ 'sm' }
+          backgroundColor={ 'transparent' }
+          borderWidth={ '1px' }
+          borderColor={ 'red.500' }
+          onClick={ () => console.log( postData ) }
+        >
           Like
         </Button>
-        <Button>
+        <Button
+          size={ 'sm' }
+          backgroundColor={ 'transparent' }
+          borderWidth={ '1px' }
+          borderColor={ 'red.500' }
+          onClick={ () => console.log( postData ) }
+        >
           Comment
         </Button>
-      </Box>
+      </Flex>
     </Flex>
   );
 };
