@@ -8,6 +8,7 @@ import {
   Button
 } from '@chakra-ui/react';
 
+//TODO callback url for each username button directing to stranger profile
 export const PostCard = ({ postData }) => {
   return (
     <Flex

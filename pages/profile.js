@@ -10,6 +10,7 @@ import { PostCard } from '../components/PostCard';
 
 import { Flex } from "@chakra-ui/react";
 
+//TODO make the edit/update profile functionality
 export default function Profile({ currentUser, userPost }) {
 
   return(
@@ -17,7 +18,7 @@ export default function Profile({ currentUser, userPost }) {
       direction={ 'column' }
       color={ 'red.500' }
     >
-      <ProfileCard userData={ currentUser } />
+      <ProfileCard userData={ currentUser } postLength={ userPost } />
       {
         userPost.map((post) => {
           return <PostCard key={ post._id } postData={ post } />

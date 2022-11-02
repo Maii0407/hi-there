@@ -1,29 +1,60 @@
 import { signOut } from 'next-auth/react';
+import NextLink from 'next/link';
 
-//import connectMongo from '../utils/connectMongo';
-//import User from '../models/userModel';
-
-import { Box, Button, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Heading
+} from "@chakra-ui/react";
 
 export default function Logout() {
 
   return(
-    <Box
-      display={ 'flex' }
+    <Flex
+      direction={ 'column' }
       color={ 'red.500' }
     >
-      <Text>
-        Logout Page
-      </Text>
-      <Button
-        onClick={ () => signOut()}
-        color={ 'red.500' }
-        bgColor={ 'blackAlpha.500' }
-        borderWidth={ '1px' }
-        borderColor={ 'red.500' }
+      <Heading
+        textAlign={ 'center' }
+        padding={ '20px 10px' }
       >
-        Im Out
-      </Button>
-    </Box>
+        Logout?
+      </Heading>
+
+      <Flex
+        direction={ 'row' }
+        justifyContent={ 'space-around' }
+        alignItems={ 'center' }
+      >
+        <Button
+          onClick={ () => signOut({ callbackUrl: '/' }) }
+          color={ 'gray.900' }
+          backgroundColor={ 'red.500' }
+          borderWidth={ '5px' }
+          borderColor={ 'gray.900' }
+          borderStyle={ 'double' }
+          size={ 'lg' }
+        >
+          Yes
+        </Button>
+        <NextLink
+          href={ '/' }
+          passHref
+        >
+          <Button
+            as='a'
+            color={ 'gray.900' }
+            backgroundColor={ 'red.500' }
+            borderWidth={ '5px' }
+            borderColor={ 'gray.900' }
+            borderStyle={ 'double' }
+            size={ 'lg' }
+          >
+            No
+          </Button>
+        </NextLink>
+      </Flex>
+
+    </Flex>
   )
 };

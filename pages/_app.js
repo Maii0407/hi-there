@@ -7,6 +7,10 @@ import { Layout } from '../components/Layout';
 import '../styles/globals.css';
 
 const theme = extendTheme({
+  fonts: {
+    heading: `'Alfa Slab One', alfa-slab-one`,
+    body: `'Alfa Slab One', alfa-slab-one`,
+  },
   styles: {
     global: {
       'html, body': {

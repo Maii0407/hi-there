@@ -8,7 +8,7 @@ import {
   Avatar
 } from '@chakra-ui/react';
 
-export const ProfileCard = ({ userData }) => {
+export const ProfileCard = ({ userData, postLength }) => {
   return (
     <Box>
       <Flex
@@ -56,7 +56,6 @@ export const ProfileCard = ({ userData }) => {
         justifyContent={ 'space-around' }
         backgroundColor={ 'gray.900' }
         padding={ '10px' }size={ 'sm' }
-        backgroundColor={ 'transparent' }
         marginTop={ '10px' }
         borderWidth={ '1px 0 1px 0' }
         borderColor={ 'red.500' }
@@ -65,13 +64,13 @@ export const ProfileCard = ({ userData }) => {
           size={ 'sm' }
           backgroundColor={ 'transparent' }
         >
-          Num Posts
+          { postLength.length } Posts
         </Button>
         <Button
           size={ 'sm' }
           backgroundColor={ 'transparent' }
         >
-          Num Friends
+          { userData.friends.length } Friends
         </Button>
       </Flex>
     </Box>
