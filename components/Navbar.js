@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 
-import { links } from './pageLinkData';
+import { links } from './data/pageLinkData';
 
 import {
   Box,

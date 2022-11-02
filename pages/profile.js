@@ -11,8 +11,6 @@ import { PostCard } from '../components/PostCard';
 import { Flex } from "@chakra-ui/react";
 
 export default function Profile({ currentUser, userPost }) {
-  console.log( currentUser );
-  console.log( userPost );
 
   return(
     <Flex

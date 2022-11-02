@@ -1,29 +1,48 @@
-import { signOut } from 'next-auth/react';
+import connectMongo from '../utils/connectMongo';
+import Post from '../models/postModel';
+import User from '../models/userModel';
 
-//import connectMongo from '../utils/connectMongo';
-//import User from '../models/userModel';
+import { PostCard } from '../components/PostCard';
 
-import { Box, Button, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Text
+} from "@chakra-ui/react";
 
-export default function Discover() {
+export default function Discover({ posts }) {
 
   return(
-    <Box
-      display={ 'flex' }
+    <Flex
+      direction={ 'column' }
       color={ 'red.500' }
     >
-      <Text>
-        Discover Page
-      </Text>
-      <Button
-        onClick={ () => signOut()}
-        color={ 'red.500' }
-        bgColor={ 'blackAlpha.500' }
-        borderWidth={ '1px' }
-        borderColor={ 'red.500' }
-      >
-        Im Out
-      </Button>
-    </Box>
+      {
+        posts.map(( post ) => {
+          return <PostCard key={ post._id } postData={ post } />
+        })
+      }
+    </Flex>
   )
+};
+
+export async function getServerSideProps( context ) {
+  try {
+    await connectMongo();
+
+    const posts = await Post.find().sort({ date: -1 })
+      .populate({ path: 'user', model: User });
+
+    return {
+      props: {
+        posts: JSON.parse( JSON.stringify( posts ))
+      }
+    };
+  }
+  catch( error ) {
+    console.log( error );
+    return {
+      notFound: true,
+    }
+  }
 };

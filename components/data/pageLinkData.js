@@ -12,10 +12,6 @@ export const links = [
     href: 'discover'
   },
   {
-    name: 'Menu',
-    href: 'menu'
-  },
-  {
     name: 'Friend List',
     href: 'friendlist'
   },
