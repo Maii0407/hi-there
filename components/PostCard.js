@@ -1,4 +1,6 @@
 import React from 'react';
+import NextLink from 'next/link';
+import { useSession } from 'next-auth/react';
 
 import {
   Avatar,
@@ -8,13 +10,26 @@ import {
   Button
 } from '@chakra-ui/react';
 
-//TODO callback url for each username button directing to stranger profile
 export const PostCard = ({ postData }) => {
+  const { data: session } = useSession();
+
+  // this function returns a different link if pressing current users name in posts???
+  const returnLink = () => {
+    if( session.user.id === postData.user._id ) {
+      return '/profile';
+    }
+    else {
+      return `/profile/${ postData.user._id }`;
+    }
+  };
+
   return (
     <Flex
       direction={ 'column' }
       margin={ '10px 0' }
       backgroundColor={ 'gray.900' }
+      borderWidth={ '1px' }
+      borderColor={ 'red.500' }
     >
       <Flex
         direction={ 'row' }
@@ -25,13 +40,18 @@ export const PostCard = ({ postData }) => {
         <Avatar
           src={ postData.user.image }
         />
-        <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
-          onClick={ () => console.log( postData.user.name ) }
+        <NextLink
+          href={ returnLink() }
+          passHref
         >
-          { postData.user.name }
-        </Button>
+          <Button
+            as='a'
+            size={ 'sm' }
+            backgroundColor={ 'transparent' }
+          >
+            { postData.user.name }
+          </Button>
+        </NextLink>
       </Flex>
 
       <Flex

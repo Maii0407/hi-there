@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSession } from 'next-auth/react';
 
 import {
   Box,
@@ -9,8 +10,41 @@ import {
 } from '@chakra-ui/react';
 
 export const ProfileCard = ({ userData, postLength }) => {
+  const { data: session } = useSession();
+
+  //this function returns differen button based on if stranger profile or own profile
+  const returnDiffBtn = () => {
+    if( session.user.id === userData._id ) {
+      return <Button
+        backgroundColor={ 'red.500' }
+        color={ 'gray.900' }
+        borderWidth={ '5px' }
+        borderStyle={ 'double' }
+        borderColor={ 'gray.900' }
+        margin={ '5px 10px' }
+      >
+        Edit Profile
+      </Button>
+    }
+    else {
+      return <Button
+        backgroundColor={ 'red.500' }
+        color={ 'gray.900' }
+        borderWidth={ '5px' }
+        borderStyle={ 'double' }
+        borderColor={ 'gray.900' }
+        margin={ '5px 10px' }
+      >
+        Send Request
+      </Button>
+    }
+  };
+
   return (
-    <Box>
+    <Flex
+      direction={ 'column' }
+      justifyContent={ 'center' }
+    >
       <Flex
         direction={ 'row' }
         justifyContent={ 'space-around' }
@@ -32,15 +66,6 @@ export const ProfileCard = ({ userData, postLength }) => {
           >
             { userData.name }
           </Text>
-          <Button
-            backgroundColor={ 'red.500' }
-            color={ 'gray.900' }
-            borderWidth={ '5px' }
-            borderStyle={ 'double' }
-            borderColor={ 'gray.900' }
-          >
-            Edit Profile
-          </Button>
         </Flex>
       </Flex>
 
@@ -50,6 +75,8 @@ export const ProfileCard = ({ userData, postLength }) => {
         <Text>{ userData.profileBio }</Text>
         <Text>{ userData.gender }</Text>
       </Flex>
+
+      { returnDiffBtn() }
 
       <Flex
         direction={ 'row' }
@@ -73,6 +100,6 @@ export const ProfileCard = ({ userData, postLength }) => {
           { userData.friends.length } Friends
         </Button>
       </Flex>
-    </Box>
+    </Flex>
   );
 };
