@@ -9,7 +9,7 @@ import {
   Avatar
 } from '@chakra-ui/react';
 
-export const ProfileCard = ({ userData, postLength }) => {
+export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
   const { data: session } = useSession();
 
   //this function returns differen button based on if stranger profile or own profile
@@ -22,6 +22,7 @@ export const ProfileCard = ({ userData, postLength }) => {
         borderStyle={ 'double' }
         borderColor={ 'gray.900' }
         margin={ '5px 10px' }
+        onClick={ () => setIsOpen( true ) }
       >
         Edit Profile
       </Button>

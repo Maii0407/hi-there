@@ -1,4 +1,5 @@
 import { unstable_getServerSession } from 'next-auth';
+import { useState } from 'react';
 
 import connectMongo from '../utils/connectMongo';
 import User from '../models/userModel';
@@ -7,23 +8,26 @@ import { authOptions } from './api/auth/[...nextauth]';
 
 import { ProfileCard } from '../components/ProfileCard';
 import { PostCard } from '../components/PostCard';
+import { UpdateProfileForm } from '../components/UpdateProfileForm';
 
 import { Flex } from "@chakra-ui/react";
 
 //TODO make the edit/update profile functionality
 export default function Profile({ currentUser, userPost }) {
+  const [ formOpen, setFormOpen ] = useState( false );
 
   return(
     <Flex
       direction={ 'column' }
       color={ 'red.500' }
     >
-      <ProfileCard userData={ currentUser } postLength={ userPost } />
+      <ProfileCard userData={ currentUser } postLength={ userPost } setIsOpen={ setFormOpen } />
       {
         userPost.map((post) => {
           return <PostCard key={ post._id } postData={ post } />
         })
       }
+      { formOpen ? ( <UpdateProfileForm setIsOpen={ setFormOpen } userData={ currentUser } /> ) : null }
     </Flex>
   )
 };

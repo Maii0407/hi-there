@@ -188,6 +188,7 @@ export const Navbar = () => {
                   backgroundColor={ 'red.500' }
                   size={ 'md' }
                   padding={ '0 30px' }
+                  margin={ '10px' }
                   onClick={ () => handleClick() }
                 >
                   Post
