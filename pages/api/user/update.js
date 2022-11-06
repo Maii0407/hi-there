@@ -13,11 +13,11 @@ export default async function handler( req, res ) {
         await connectMongo();
 
         const user = await User.updateOne({
-          _id: req.user.id //TODO change this
+          _id: session.user.id
         },
         {
-          image: req.body.defaultPic,
-          name: req.body.displayName,
+          //image: req.body.defaultPic, //TODO dont forget this
+          name: req.body.name,
           profileBio: req.body.profileBio,
           gender: req.body.gender
         });

@@ -1,4 +1,4 @@
-import { useSession, signIn, getProviders } from 'next-auth/react';
+import { useSession, signIn, getProviders, unstable_getServerSession} from 'next-auth/react';
 
 import connectMongo from '../utils/connectMongo';
 import Post from '../models/postModel';
@@ -16,6 +16,7 @@ export default function Home({ providers, posts }) {
 
   if( session ) {
   //this logic filters index posts to show only posts from user and user.friends
+  console.log( session );
     const userAndFriend = [ session.user.id ];
 
     session.user.friends.forEach( ( friend ) => {
@@ -73,6 +74,44 @@ export default function Home({ providers, posts }) {
     </Box>
   )
 };
+
+// export async function getServerSideProps( context ) {
+//   const session = await unstable_getServerSession(context.req, context.res, authOptions);
+
+//   if( session ) {
+//     try {
+//       const providers = await getProviders();
+
+//       await connectMongo();
+
+//       const currentUser = await User.findById( session.user.id );
+//       const posts = await Post.find().sort({ date: -1 })
+//         .populate({ path: 'user', model: User });
+  
+//       return {
+//         props: {
+//           providers,
+//           currentUser: JSON.parse( JSON.stringify( currentUser )),
+//           posts: JSON.parse( JSON.stringify( posts )),
+//         },
+//       }
+//     }
+//     catch( error ) {
+//       console.log( error );
+//       return {
+//         notFound: true,
+//       }
+//     }
+//   }
+//   else {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false,
+//       },
+//     }
+//   }
+// };
 
 export async function getServerSideProps( context ) {
   try {

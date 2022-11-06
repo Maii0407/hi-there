@@ -43,7 +43,6 @@ export const Navbar = () => {
         },
       });
   
-      console.log( response.data );
       return response.data;
     }
     catch( error ) {

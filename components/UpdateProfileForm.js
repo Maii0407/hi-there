@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 import {
   Box,
@@ -16,10 +18,37 @@ import { CloseIcon } from '@chakra-ui/icons';
 //TODO finish the handleclick function of this component
 export const UpdateProfileForm = ({ setIsOpen, userData }) => {
   const { data: session } = useSession();
+  const router = useRouter();
 
   const [ nameState, setNameState ] = useState( userData.name );
   const [ genderState, setGenderState ] = useState( userData.gender );
   const [ bioState, setBioState ] = useState( userData.profileBio );
+
+  //this function handles if form is submitted
+  const handleClick = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/user/update',
+        withCredentials: true,
+        data: {
+          name: nameState,
+          gender: genderState,
+          profileBio: bioState
+        },
+      });
+  
+      console.log( response.data );
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      setIsOpen( false );
+      router.replace( router.asPath );
+    }
+  };
 
   return(
     <Box
@@ -49,8 +78,8 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
         padding='10px'
       >
         <Avatar
-          src={ session.user.image }
-          alt={ session.user.name }
+          src={ userData.image }
+          alt={ userData.name }
           size='lg'
           borderWidth='5px'
           borderColor='red.500'
@@ -69,6 +98,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
           Name:
         </FormLabel>
         <Input
+          type='text'
           id='name'
           name='name'
           value={ nameState }
@@ -76,6 +106,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
           variant='filled'
           backgroundColor='gray.900'
           marginBottom='10px'
+          placeholder='Update Name'
         />
 
         <FormLabel 
@@ -84,6 +115,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
           Gender:
         </FormLabel>
         <Input
+          type='text'
           id='gender'
           name='gender'
           value={ genderState }
@@ -91,6 +123,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
           variant='filled'
           backgroundColor='gray.900'
           marginBottom='10px'
+          placeholder='Update Gender'
         />
 
         <FormLabel 
@@ -99,6 +132,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
           Profile Bio:
         </FormLabel>
         <Input
+          type='text'
           id='profileBio'
           name='profileBio'
           value={ bioState }
@@ -106,6 +140,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
           variant='filled'
           backgroundColor='gray.900'
           marginBottom='10px'
+          placeholder='Update Bio'
         />
 
         <Button
@@ -114,6 +149,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
           borderWidth='5px'
           borderColor='gray.900'
           borderStyle='double'
+          onClick={ () => handleClick() }
         >
           Update Profile
         </Button>
