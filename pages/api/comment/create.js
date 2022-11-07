@@ -15,8 +15,8 @@ export default async function handler( req, res ) {
         const newComment = new Comment({
           content: req.body.content,
           date: new Date(),
-          user: req.user.id, //TODO change this
-          post: req.params.postId //TODO change this
+          user: req.body.user, //TODO change this
+          post: req.body.post //TODO change this
         });
 
         newComment.save();

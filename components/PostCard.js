@@ -127,7 +127,7 @@ export const PostCard = ({ postData }) => {
           Comment
         </Button>
       </Flex>
-      { commentOpen ? ( <CommentOverlay setIsOpen={ setCommentOpen } /> ) : null }
+      { commentOpen ? ( <CommentOverlay setIsOpen={ setCommentOpen } postData={ postData } /> ) : null }
     </Flex>
   );
 };
