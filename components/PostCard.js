@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
+
+import { CommentOverlay } from './CommentOverlay';
 
 import {
   Avatar,
@@ -12,6 +14,8 @@ import {
 
 export const PostCard = ({ postData }) => {
   const { data: session } = useSession();
+  
+  const [ commentOpen, setCommentOpen ] = useState( false );
 
   // this function returns a different link if pressing current users name in posts???
   const returnLink = () => {
@@ -93,7 +97,7 @@ export const PostCard = ({ postData }) => {
           backgroundColor={ 'transparent' }
           borderWidth={ '1px' }
           borderColor={ 'red.500' }
-          onClick={ () => console.log( postData ) }
+          onClick={ () => setCommentOpen( true ) }
         >
           Comments Num
         </Button>
@@ -118,11 +122,12 @@ export const PostCard = ({ postData }) => {
           backgroundColor={ 'transparent' }
           borderWidth={ '1px' }
           borderColor={ 'red.500' }
-          onClick={ () => console.log( postData ) }
+          onClick={ () => setCommentOpen( true ) }
         >
           Comment
         </Button>
       </Flex>
+      { commentOpen ? ( <CommentOverlay setIsOpen={ setCommentOpen } /> ) : null }
     </Flex>
   );
 };

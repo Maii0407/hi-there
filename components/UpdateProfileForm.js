@@ -47,6 +47,8 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
     finally {
       setIsOpen( false );
       router.replace( router.asPath );
+      const event = new Event("visibilitychange");
+      document.dispatchEvent(event);
     }
   };
 
