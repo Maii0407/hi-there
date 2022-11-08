@@ -3,6 +3,7 @@ import { useSession, signIn, getProviders } from 'next-auth/react';
 import connectMongo from '../utils/connectMongo';
 import Post from '../models/postModel';
 import User from '../models/userModel';
+import Comment from '../models/commentModel';
 
 import { PostCard } from '../components/PostCard';
 import {
@@ -11,12 +12,18 @@ import {
   Flex
 } from "@chakra-ui/react";
 
-export default function Home({ providers, posts }) {
+export default function Home({ providers, posts, comments }) {
   const { data: session } = useSession();
+
+  //function to return filtered comments to pass as props
+  const returnFilteredComments = ( someData ) => {
+    const filteredComments = comments.filter( comment => comment.post === someData._id );
+
+    return filteredComments;
+  };
 
   if( session ) {
   //this logic filters index posts to show only posts from user and user.friends
-  console.log( session );
     const userAndFriend = [ session.user.id ];
 
     session.user.friends.forEach( ( friend ) => {
@@ -32,7 +39,7 @@ export default function Home({ providers, posts }) {
       >
         {
           filteredPosts.map((post) => {
-            return <PostCard key={ post._id } postData={ post } />
+            return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
           })
         }
       </Flex>
@@ -83,11 +90,15 @@ export async function getServerSideProps( context ) {
 
     const posts = await Post.find().sort({ date: -1 })
       .populate({ path: 'user', model: User });
+    
+      const comments = await Comment.find().sort({ date: -1 })
+        .populate({ path: 'user', model: User });
 
     return {
       props: {
         providers,
-        posts: JSON.parse( JSON.stringify( posts ))
+        posts: JSON.parse( JSON.stringify( posts )),
+        comments: JSON.parse( JSON.stringify( comments ))
       },
     }
   }

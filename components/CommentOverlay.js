@@ -13,7 +13,7 @@ import {
 
 //TODO finish this
 //TODO make the fetch comments data function
-export const CommentOverlay = ({ setIsOpen, postData }) => {
+export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
   const { data: session } = useSession();
 
   const [ contentState, setContentState ] = useState('');
@@ -88,7 +88,15 @@ export const CommentOverlay = ({ setIsOpen, postData }) => {
         </Button>
       </Flex>
 
-      <Flex></Flex>
+      <Flex
+        direction='column'
+      >
+        {
+          commentArray.map(( comment ) => {
+            return <Box key={ comment._id } >{ comment.content }</Box>
+          })
+        }
+      </Flex>
 
       <Flex
         direction='row'

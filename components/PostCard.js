@@ -12,10 +12,12 @@ import {
   Button
 } from '@chakra-ui/react';
 
-export const PostCard = ({ postData }) => {
+export const PostCard = ({ postData, commentArray }) => {
   const { data: session } = useSession();
   
   const [ commentOpen, setCommentOpen ] = useState( false );
+
+  console.log( commentArray );
 
   // this function returns a different link if pressing current users name in posts???
   const returnLink = () => {
@@ -127,7 +129,7 @@ export const PostCard = ({ postData }) => {
           Comment
         </Button>
       </Flex>
-      { commentOpen ? ( <CommentOverlay setIsOpen={ setCommentOpen } postData={ postData } /> ) : null }
+      { commentOpen ? ( <CommentOverlay setIsOpen={ setCommentOpen } postData={ postData } commentArray={ commentArray } /> ) : null }
     </Flex>
   );
 };
