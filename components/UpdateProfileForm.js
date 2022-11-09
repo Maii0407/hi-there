@@ -22,6 +22,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
   const [ nameState, setNameState ] = useState( userData.name );
   const [ genderState, setGenderState ] = useState( userData.gender );
   const [ bioState, setBioState ] = useState( userData.profileBio );
+  const [ imageState, setImageState ] = useState( userData.image );
 
   //this function handles if form is submitted
   const handleClick = async () => {
@@ -33,7 +34,8 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
         data: {
           name: nameState,
           gender: genderState,
-          profileBio: bioState
+          profileBio: bioState,
+          image: imageState
         },
       });
   
@@ -93,6 +95,23 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
         alignItems='center'
         padding='10px'
       >
+        <FormLabel 
+          htmlFor='image'
+        >
+          Name:
+        </FormLabel>
+        <Input
+          type='text'
+          id='image'
+          name='image'
+          value={ imageState }
+          onChange={ (e) => setImageState( e.target.value ) }
+          variant='filled'
+          backgroundColor='gray.900'
+          marginBottom='10px'
+          placeholder='Update Name'
+        />
+
         <FormLabel 
           htmlFor='name'
         >

@@ -55,6 +55,9 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
     >
 
       <Flex
+        direction='row'
+        justifyContent='space-around'
+        alignItems='center'
         borderBottom={ '1px' }
         borderColor={ 'red.500' }
       >
@@ -64,13 +67,6 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
           color={ 'red.500' }
           onClick={ () => setIsOpen( false ) }
         />
-      </Flex>
-
-      <Flex
-        direction='row'
-        justifyContent='space-between'
-        padding='5px 10px'
-      >
         <Button
           onClick={ () => console.log( 'num of likes' ) }
           backgroundColor='transparent'
@@ -91,7 +87,7 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
       <Flex
         direction='column'
         overflowY='scroll'
-        maxHeight='70vh'
+        maxHeight='80vh'
       >
         {
           commentArray.map(( comment ) => {
@@ -107,14 +103,13 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
         right='0'
         width='100%'
         padding='5px 10px'
-        backgroundColor='gray.900'
         zIndex={ '7' }
       >
         <Input
           type='text'
           placeholder='Write a comment..'
           variant='filled'
-          backgroundColor='gray.800'
+          backgroundColor='gray.900'
           value={ contentState }
           onChange={ (e) => setContentState( e.target.value ) }
         />

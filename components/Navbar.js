@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 import { links } from './data/pageLinkData';
 
@@ -16,16 +17,20 @@ import {
   Stack,
   Button,
   FormControl,
-  Textarea
+  Textarea,
+  Input
 } from '@chakra-ui/react';
 
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
 export const Navbar = () => {
+  const router = useRouter();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [ formOpen, setFormOpen ] = useState( false );
 
   const [ postContent, setPostContent ] = useState('');
+  const [ imageContent, setImageContent ] = useState('');
 
   const { data: session } = useSession();
 
@@ -38,7 +43,7 @@ export const Navbar = () => {
         withCredentials: true,
         data: {
           content: postContent,
-          image: '',
+          image: imageContent,
           user: session.user.id
         },
       });
@@ -50,7 +55,9 @@ export const Navbar = () => {
     }
     finally {
       setPostContent('');
+      setImageContent('');
       setFormOpen( false );
+      router.replace(router.asPath);
     }
   };
   
@@ -173,14 +180,26 @@ export const Navbar = () => {
                 alignItems={ 'center' }
                 padding={ '10px' }
               >
+                <Input
+                  value={ imageContent }
+                  onChange={(e) => setImageContent( e.target.value )}
+                  type='url'
+                  placeholder='Image URL...'
+                  variant='filled'
+                  color='red.500'
+                  backgroundColor='transparent'
+                  borderColor='red.500'
+                  borderRadius='0'
+                  marginBottom='10px'
+                />
                 <Textarea
+                  value={ postContent }
+                  onChange={ ( e ) => setPostContent( e.target.value ) }
                   placeholder={ `What's on your mind?` }
                   color={ 'red.500' }
                   resize={ 'vertical' }
                   borderColor={ 'red.500' }
                   borderRadius={ '0' }
-                  value={ postContent }
-                  onChange={ ( e ) => setPostContent( e.target.value ) }
                 />
                 <Button
                   color={ 'gray.900' }

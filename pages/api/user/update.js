@@ -16,7 +16,7 @@ export default async function handler( req, res ) {
           _id: session.user.id
         },
         {
-          //image: req.body.defaultPic, //TODO dont forget this
+          image: req.body.image,
           name: req.body.name,
           profileBio: req.body.profileBio,
           gender: req.body.gender
