@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 
+import { CommentCard } from './CommentCard';
+
 import { CloseIcon } from '@chakra-ui/icons';
 import {
   Box,
@@ -11,8 +13,6 @@ import {
   Input
 } from '@chakra-ui/react';
 
-//TODO finish this
-//TODO make the fetch comments data function
 export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
   const { data: session } = useSession();
 
@@ -90,10 +90,12 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
 
       <Flex
         direction='column'
+        overflowY='scroll'
+        maxHeight='70vh'
       >
         {
           commentArray.map(( comment ) => {
-            return <Box key={ comment._id } >{ comment.content }</Box>
+            return <CommentCard key={ comment._id } commentData={ comment } />
           })
         }
       </Flex>
@@ -105,12 +107,14 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
         right='0'
         width='100%'
         padding='5px 10px'
+        backgroundColor='gray.900'
+        zIndex={ '7' }
       >
         <Input
           type='text'
           placeholder='Write a comment..'
           variant='filled'
-          backgroundColor='gray.900'
+          backgroundColor='gray.800'
           value={ contentState }
           onChange={ (e) => setContentState( e.target.value ) }
         />

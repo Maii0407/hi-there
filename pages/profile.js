@@ -12,7 +12,6 @@ import { UpdateProfileForm } from '../components/UpdateProfileForm';
 
 import { Flex } from "@chakra-ui/react";
 
-//TODO make the edit/update profile functionality
 export default function Profile({ currentUser, userPost }) {
   const [ formOpen, setFormOpen ] = useState( false );
 

@@ -15,7 +15,6 @@ import {
 
 import { CloseIcon } from '@chakra-ui/icons';
 
-//TODO finish the handleclick function of this component
 export const UpdateProfileForm = ({ setIsOpen, userData }) => {
   const { data: session } = useSession();
   const router = useRouter();

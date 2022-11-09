@@ -17,8 +17,6 @@ export const PostCard = ({ postData, commentArray }) => {
   
   const [ commentOpen, setCommentOpen ] = useState( false );
 
-  console.log( commentArray );
-
   // this function returns a different link if pressing current users name in posts???
   const returnLink = () => {
     if( session.user.id === postData.user._id ) {
