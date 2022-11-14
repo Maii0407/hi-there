@@ -27,3 +27,5 @@ export default function FriendList() {
     </Box>
   )
 };
+
+//TODO use unstable get server session

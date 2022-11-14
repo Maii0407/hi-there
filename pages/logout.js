@@ -7,6 +7,7 @@ import {
   Heading
 } from "@chakra-ui/react";
 
+//TODO edit auth routeing
 export default function Logout() {
 
   return(
@@ -27,7 +28,7 @@ export default function Logout() {
         alignItems={ 'center' }
       >
         <Button
-          onClick={ () => signOut({ callbackUrl: '/' }) }
+          onClick={ () => signOut({ callbackUrl: '/login' }) }
           color={ 'gray.900' }
           backgroundColor={ 'red.500' }
           borderWidth={ '5px' }

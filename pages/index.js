@@ -1,9 +1,11 @@
-import { useSession, signIn, getProviders } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { unstable_getServerSession } from 'next-auth';
 
 import connectMongo from '../utils/connectMongo';
 import Post from '../models/postModel';
 import User from '../models/userModel';
 import Comment from '../models/commentModel';
+import { authOptions } from './api/auth/[...nextauth]';
 
 import { PostCard } from '../components/PostCard';
 import {
@@ -12,7 +14,7 @@ import {
   Flex
 } from "@chakra-ui/react";
 
-export default function Home({ providers, posts, comments }) {
+export default function Home({ currentUser, posts, comments }) {
   const { data: session } = useSession();
 
   //function to return filtered comments to pass as props
@@ -27,7 +29,7 @@ export default function Home({ providers, posts, comments }) {
     console.log( session );
     const userAndFriend = [ session.user.id ];
 
-    session.user.friends.forEach( ( friend ) => {
+    currentUser.friends.forEach( ( friend ) => {
       userAndFriend.push( friend._id );
     });
 
@@ -46,67 +48,44 @@ export default function Home({ providers, posts, comments }) {
       </Flex>
     )
   }
-
-  return(
-    <Box
-      position={ 'fixed' }
-      width={ '100%' }
-      height={ '100%' }
-      display={ 'flex' }
-      justifyContent={ 'center' }
-      alignItems={ 'center' }
-    >
-      <Box
-        borderWidth={ '5px' }
-        borderColor={ 'red.500' }
-        borderStyle={ 'double' }
-        borderRadius={ '5px' }
-        padding={ '10px 20px' }
-      >
-        {
-          Object.values( providers ).map(( provider ) => {
-            return(
-              <Box key={ provider.name }>
-                <Button
-                  onClick={ () => signIn( provider.id, { callbackUrl: 'http://localhost:3000' } )}
-                  color={ 'red.500' }
-                  bgColor={ 'black' }
-                >
-                  Login in with { provider.name }
-                </Button>
-              </Box>
-            )
-          })
-        }
-      </Box>
-    </Box>
-  )
 };
 
 export async function getServerSideProps( context ) {
-  try {
-    const providers = await getProviders();
+  const session = await unstable_getServerSession(context.req, context.res, authOptions);
 
-    await connectMongo();
+  if( session ) {
+    try {
+      await connectMongo();
 
-    const posts = await Post.find().sort({ date: -1 })
+      const currentUser = await User.findById( session.user.id );
+      
+      const posts = await Post.find().sort({ date: -1 })
       .populate({ path: 'user', model: User });
     
       const comments = await Comment.find().sort({ date: -1 })
         .populate({ path: 'user', model: User });
-
-    return {
-      props: {
-        providers,
-        posts: JSON.parse( JSON.stringify( posts )),
-        comments: JSON.parse( JSON.stringify( comments ))
-      },
+  
+      return {
+        props: {
+          currentUser: JSON.parse( JSON.stringify( currentUser )),
+          posts: JSON.parse( JSON.stringify( posts )),
+          comments: JSON.parse( JSON.stringify( comments )),
+        },
+      }
+    }
+    catch( error ) {
+      console.log( error );
+      return {
+        notFound: true,
+      }
     }
   }
-  catch( error ) {
-    console.log( error );
+  else {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
     }
   }
 };

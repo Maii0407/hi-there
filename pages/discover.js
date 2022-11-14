@@ -1,3 +1,5 @@
+import { useSession } from 'next-auth/react';
+
 import connectMongo from '../utils/connectMongo';
 import Post from '../models/postModel';
 import User from '../models/userModel';
@@ -12,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 export default function Discover({ posts, comments }) {
+  const { data: session } = useSession();
 
   //function to return filtered comments to pass as props
   const returnFilteredComments = ( someData ) => {
@@ -20,20 +23,23 @@ export default function Discover({ posts, comments }) {
     return filteredComments;
   };
 
-  return(
-    <Flex
-      direction={ 'column' }
-      color={ 'red.500' }
-    >
-      {
-        posts.map(( post ) => {
-          return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
-        })
-      }
-    </Flex>
-  )
+  if( session ) {
+    return(
+      <Flex
+        direction={ 'column' }
+        color={ 'red.500' }
+      >
+        {
+          posts.map(( post ) => {
+            return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
+          })
+        }
+      </Flex>
+    )
+  }
 };
 
+//TODO use unstable get server session
 export async function getServerSideProps( context ) {
   try {
     await connectMongo();
