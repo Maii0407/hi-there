@@ -7,6 +7,7 @@ import { signIn, getProviders } from 'next-auth/react';
 
 import {
   Box,
+  Flex,
   Button
 } from "@chakra-ui/react"
 
@@ -20,7 +21,9 @@ export default function Login({ providers }) {
       justifyContent={ 'center' }
       alignItems={ 'center' }
     >
-      <Box
+      <Flex
+        direction='column'
+        justifyContent='center'
         borderWidth={ '5px' }
         borderColor={ 'red.500' }
         borderStyle={ 'double' }
@@ -30,19 +33,19 @@ export default function Login({ providers }) {
         {
           Object.values( providers ).map(( provider ) => {
             return(
-              <Box key={ provider.name }>
-                <Button
-                  onClick={ () => signIn( provider.id, { callbackUrl: 'http://localhost:3000' } )}
-                  color={ 'red.500' }
-                  bgColor={ 'black' }
-                >
-                  Login in with { provider.name }
-                </Button>
-              </Box>
+              <Button
+                key={ provider.name }
+                onClick={ () => signIn( provider.id, { callbackUrl: 'http://localhost:3000' } )}
+                color={ 'red.500' }
+                bgColor={ 'black' }
+                margin='5px'
+              >
+                { provider.name } Login
+              </Button>
             )
           })
         }
-      </Box>
+      </Flex>
     </Box>
   )
 };

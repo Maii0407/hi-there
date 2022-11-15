@@ -3,6 +3,7 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import clientPromise from '../../../utils/mongodb';
 
 import FacebookProvider from 'next-auth/providers/facebook';
+import CredentialsProvider from "next-auth/providers/credentials"
 
 //TODO make the random login functionality
 export const authOptions = {
@@ -22,6 +23,35 @@ export const authOptions = {
           profileBio: '',
           gender: ''
         }
+      }
+    }),
+    CredentialsProvider({
+      // The name to display on the sign in form (e.g. 'Sign in with...')
+      name: 'Test Account',
+      // The credentials is used to generate a suitable form on the sign in page.
+      // You can specify whatever fields you are expecting to be submitted.
+      // e.g. domain, username, password, 2FA token, etc.
+      // You can pass any HTML attribute to the <input> tag through the object.
+      credentials: {
+        email: 'FAKEuser@fakerJS.com',
+        // username: { label: "Username", type: "text", placeholder: "jsmith" },
+        // password: {  label: "Password", type: "password" }
+      },
+      async authorize(credentials, req) {
+        // You need to provide your own logic here that takes the credentials
+        // submitted and returns either a object representing a user or value
+        // that is false/null if the credentials are invalid.
+        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+
+        const res = await fetch('http://localhost:3000/api/auth/testlogin', {
+          method: 'POST',
+          body: JSON.stringify(credentials),
+          headers: { "Content-Type": "application/json" }
+        })
+        const data = await res.json();
+        const user = data.fakeUser;
+  
+        return user;
       }
     })
   ],
@@ -54,44 +84,21 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
       // Persist the OAuth access_token and or the user id to the token right after signin
-      if (account) {
-        token.accessToken = account.access_token
-        token.tokenid = profile.id
-      }
-      if( user ) {
-        token.userid = user.id;
-        token.userFriends = user.friends;
-        token.userRequestsSent = user.requestsSent;
-        token.userRequestsReceived = user.requestsReceived;
-      }
+      user && (token.user = user);
 
-      // console.log({ token });
-      return token
+      return token;
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = token.accessToken;
-      session.user.tokenid = token.tokenid;
-      session.user.id = token.userid;
-      session.user.friends = token.userFriends;
-      session.user.requestsSent = token.userRequestsSent;
-      session.user.requestsReceived = token.userRequestsReceived;
+      if( token.user._id ) {
+        session.user.id = token.user._id;
+      }
+      if( token.user.id ) {
+        session.user.id = token.user.id;
+      }
       
       return session;
     }
-    // session: async ({ session, user }) => {
-    //   return {
-    //     ...session,
-    //     user: {
-    //       id: user.id,
-    //       name: user.name,
-    //       image: user.image,
-    //       friends: user.friends,
-    //       requestsSent: user.requestsSent,
-    //       requestsReceived: user.requestsReceived
-    //     },
-    //   };
-    // },
   }
 };
 

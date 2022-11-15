@@ -19,7 +19,7 @@ export const PostCard = ({ postData, commentArray }) => {
 
   // this function returns a different link if pressing current users name in posts???
   const returnLink = () => {
-    if( session.user.id === postData.user._id ) {
+    if( session.user.id=== postData.user._id ) {
       return '/profile';
     }
     else {

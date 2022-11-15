@@ -1,4 +1,6 @@
-import { signOut } from 'next-auth/react';
+import { useEffect } from 'react';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 
 import {
@@ -9,41 +11,38 @@ import {
 
 //TODO edit auth routeing
 export default function Logout() {
+  const router = useRouter();
+  const { data: session } = useSession();
 
-  return(
-    <Flex
-      direction={ 'column' }
-      color={ 'red.500' }
-    >
-      <Heading
-        textAlign={ 'center' }
-        padding={ '20px 10px' }
-      >
-        Logout?
-      </Heading>
+  useEffect(() => {
+    if( session ) {
+      router.push( router.asPath );
+    }
+    else {
+      router.push( '/login' );
+    }
+  },[]);
 
+  if( session ) {
+    return(
       <Flex
-        direction={ 'row' }
-        justifyContent={ 'space-around' }
-        alignItems={ 'center' }
+        direction={ 'column' }
+        color={ 'red.500' }
       >
-        <Button
-          onClick={ () => signOut({ callbackUrl: '/login' }) }
-          color={ 'gray.900' }
-          backgroundColor={ 'red.500' }
-          borderWidth={ '5px' }
-          borderColor={ 'gray.900' }
-          borderStyle={ 'double' }
-          size={ 'lg' }
+        <Heading
+          textAlign={ 'center' }
+          padding={ '20px 10px' }
         >
-          Yes
-        </Button>
-        <NextLink
-          href={ '/' }
-          passHref
+          Logout?
+        </Heading>
+  
+        <Flex
+          direction={ 'row' }
+          justifyContent={ 'space-around' }
+          alignItems={ 'center' }
         >
           <Button
-            as='a'
+            onClick={ () => signOut({ callbackUrl: '/login' }) }
             color={ 'gray.900' }
             backgroundColor={ 'red.500' }
             borderWidth={ '5px' }
@@ -51,11 +50,27 @@ export default function Logout() {
             borderStyle={ 'double' }
             size={ 'lg' }
           >
-            No
+            Yes
           </Button>
-        </NextLink>
+          <NextLink
+            href={ '/' }
+            passHref
+          >
+            <Button
+              as='a'
+              color={ 'gray.900' }
+              backgroundColor={ 'red.500' }
+              borderWidth={ '5px' }
+              borderColor={ 'gray.900' }
+              borderStyle={ 'double' }
+              size={ 'lg' }
+            >
+              No
+            </Button>
+          </NextLink>
+        </Flex>
+  
       </Flex>
-
-    </Flex>
-  )
+    )
+  }
 };
