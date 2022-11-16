@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
@@ -16,7 +15,6 @@ import {
 import { CloseIcon } from '@chakra-ui/icons';
 
 export const UpdateProfileForm = ({ setIsOpen, userData }) => {
-  const { data: session } = useSession();
   const router = useRouter();
 
   const [ nameState, setNameState ] = useState( userData.name );
@@ -39,7 +37,6 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
         },
       });
   
-      console.log( response.data );
       return response.data;
     }
     catch( error ) {
@@ -48,6 +45,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
     finally {
       setIsOpen( false );
       router.replace( router.asPath );
+      //below code reload session
       const event = new Event("visibilitychange");
       document.dispatchEvent(event);
     }

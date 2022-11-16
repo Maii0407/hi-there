@@ -26,7 +26,6 @@ export default function Home({ currentUser, posts, comments }) {
 
   if( session ) {
   //this logic filters index posts to show only posts from user and user.friends
-    console.log( session );
     const userAndFriend = [ session.user.id ];
 
     currentUser.friends.forEach( ( friend ) => {

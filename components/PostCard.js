@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 import { CommentOverlay } from './CommentOverlay';
 
@@ -14,6 +16,9 @@ import {
 
 export const PostCard = ({ postData, commentArray }) => {
   const { data: session } = useSession();
+  const router = useRouter();
+
+  console.log({ postData });
   
   const [ commentOpen, setCommentOpen ] = useState( false );
 
@@ -24,6 +29,86 @@ export const PostCard = ({ postData, commentArray }) => {
     }
     else {
       return `/profile/${ postData.user._id }`;
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/post/like',
+        withCredentials: true,
+        data: {
+          postId: postData._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      router.replace( router.asPath );
+      // const event = new Event("visibilitychange");
+      // document.dispatchEvent(event);
+    }
+  };
+
+  //TODO finish this
+  const handleUnlike = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/user/update',
+        withCredentials: true,
+        data: {
+          name: nameState,
+          gender: genderState,
+          profileBio: bioState,
+          image: imageState
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      setIsOpen( false );
+      router.replace( router.asPath );
+      const event = new Event("visibilitychange");
+      document.dispatchEvent(event);
+    }
+  };
+
+  //function that check if button is like or unlike
+  const returnLikeBtn = () => {
+    const found = postData.likes.find( user => user === session.user.id );
+
+    if( !found ) {
+      return <Button
+        size={ 'sm' }
+        backgroundColor={ 'transparent' }
+        borderWidth={ '1px' }
+        borderColor={ 'red.500' }
+        onClick={ () => handleLike() }
+      >
+        Like
+      </Button>
+    }
+    else {
+      return <Button
+        size={ 'sm' }
+        backgroundColor={ 'transparent' }
+        borderWidth={ '1px' }
+        borderColor={ 'red.500' }
+        onClick={ () => console.log( 'unlike' ) }
+      >
+        Unlike
+      </Button>
     }
   };
 
@@ -90,7 +175,7 @@ export const PostCard = ({ postData, commentArray }) => {
           borderColor={ 'red.500' }
           onClick={ () => console.log( postData ) }
         >
-          Likes Num
+          { postData.likes.length } Likes
         </Button>
         <Button
           size={ 'sm' }
@@ -99,7 +184,7 @@ export const PostCard = ({ postData, commentArray }) => {
           borderColor={ 'red.500' }
           onClick={ () => setCommentOpen( true ) }
         >
-          Comments Num
+          { commentArray.length } Comments
         </Button>
       </Flex>
 
@@ -108,15 +193,7 @@ export const PostCard = ({ postData, commentArray }) => {
         justifyContent={ 'space-between' }
         padding={ '10px 10px' }
       >
-        <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
-          borderWidth={ '1px' }
-          borderColor={ 'red.500' }
-          onClick={ () => console.log( postData ) }
-        >
-          Like
-        </Button>
+        { returnLikeBtn() }
         <Button
           size={ 'sm' }
           backgroundColor={ 'transparent' }

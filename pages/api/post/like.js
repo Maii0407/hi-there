@@ -13,10 +13,10 @@ export default async function handler( req, res ) {
         await connectMongo();
 
         const likedPost = await Post.updateOne({
-          _id: req.params.postId//TODO change this
+          _id: req.body.postId//TODO change this
         },
         {
-          $push: { likes: req.user.id }//TODO change this
+          $push: { likes: req.body.userId }//TODO change this
         });
   
         return res.status( 200 ).json({
