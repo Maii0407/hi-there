@@ -13,10 +13,10 @@ export default async function handler( req, res ) {
         await connectMongo();
 
         const unlikedPost = await Post.updateOne({
-          _id: req.params.postId//TODO change this
+          _id: req.body.postId
         },
         {
-          $pull: { likes: { $in: [ req.user.id ]} }//TODO change this
+          $pull: { likes: { $in: [ req.body.userId ]} }
         });
   
         return res.status( 200 ).json({

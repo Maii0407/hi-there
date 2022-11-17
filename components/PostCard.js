@@ -18,10 +18,12 @@ export const PostCard = ({ postData, commentArray }) => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  console.log({ postData });
+  // console.log({ postData });
   
   const [ commentOpen, setCommentOpen ] = useState( false );
+  const [ likeState, setLikeState ] = useState( postData.likes );
 
+  console.log({ likeState });
   // this function returns a different link if pressing current users name in posts???
   const returnLink = () => {
     if( session.user.id=== postData.user._id ) {
@@ -50,24 +52,22 @@ export const PostCard = ({ postData, commentArray }) => {
       console.log( error );
     }
     finally {
-      router.replace( router.asPath );
+      setLikeState( likeState => [ ...likeState, session.user.id ] );
+      // router.replace( router.asPath );
       // const event = new Event("visibilitychange");
       // document.dispatchEvent(event);
     }
   };
 
-  //TODO finish this
   const handleUnlike = async () => {
     try {
       const response = await axios({
         method: 'put',
-        url: '/api/user/update',
+        url: '/api/post/unlike',
         withCredentials: true,
         data: {
-          name: nameState,
-          gender: genderState,
-          profileBio: bioState,
-          image: imageState
+          postId: postData._id,
+          userId: session.user.id
         },
       });
   
@@ -77,16 +77,14 @@ export const PostCard = ({ postData, commentArray }) => {
       console.log( error );
     }
     finally {
-      setIsOpen( false );
-      router.replace( router.asPath );
-      const event = new Event("visibilitychange");
-      document.dispatchEvent(event);
+      const filteredArray = likeState.filter( user => user !== session.user.id );
+      setLikeState( filteredArray );
     }
   };
 
   //function that check if button is like or unlike
   const returnLikeBtn = () => {
-    const found = postData.likes.find( user => user === session.user.id );
+    const found = likeState.find( user => user === session.user.id );
 
     if( !found ) {
       return <Button
@@ -105,7 +103,7 @@ export const PostCard = ({ postData, commentArray }) => {
         backgroundColor={ 'transparent' }
         borderWidth={ '1px' }
         borderColor={ 'red.500' }
-        onClick={ () => console.log( 'unlike' ) }
+        onClick={ () => handleUnlike() }
       >
         Unlike
       </Button>
@@ -175,7 +173,7 @@ export const PostCard = ({ postData, commentArray }) => {
           borderColor={ 'red.500' }
           onClick={ () => console.log( postData ) }
         >
-          { postData.likes.length } Likes
+          { likeState.length } Likes
         </Button>
         <Button
           size={ 'sm' }
