@@ -13,7 +13,7 @@ import {
   Input
 } from '@chakra-ui/react';
 
-export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
+export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, setLikeState }) => {
   const { data: session } = useSession();
 
   const [ contentState, setContentState ] = useState('');
@@ -40,6 +40,79 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
     finally {
       setContentState('');
       setIsOpen( false );
+    }
+  };
+
+  const handlePostLike = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/post/like',
+        withCredentials: true,
+        data: {
+          postId: postData._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      setLikeState( likeState => [ ...likeState, session.user.id ] );
+    }
+  };
+
+  const handlePostUnlike = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/post/unlike',
+        withCredentials: true,
+        data: {
+          postId: postData._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      const filteredArray = likeState.filter( user => user !== session.user.id );
+      setLikeState( filteredArray );
+    }
+  };
+
+  //function that check if button is like or unlike
+  const returnPostLikeBtn = () => {
+    const found = likeState.find( user => user === session.user.id );
+
+    if( !found ) {
+      return <Button
+        size={ 'sm' }
+        backgroundColor={ 'transparent' }
+        borderWidth={ '1px' }
+        borderColor={ 'red.500' }
+        onClick={ () => handlePostLike() }
+      >
+        Like
+      </Button>
+    }
+    else {
+      return <Button
+        size={ 'sm' }
+        backgroundColor={ 'transparent' }
+        borderWidth={ '1px' }
+        borderColor={ 'red.500' }
+        onClick={ () => handlePostUnlike() }
+      >
+        Unlike
+      </Button>
     }
   };
 
@@ -71,17 +144,9 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray }) => {
           onClick={ () => console.log( 'num of likes' ) }
           backgroundColor='transparent'
         >
-          num of likes
+          { likeState.length } Likes
         </Button>
-        <Button
-          onClick={ () => console.log( 'Like' ) }
-          backgroundColor='transparent'
-          borderWidth='1px'
-          borderColor='red.500'
-          size='sm'
-        >
-          Like
-        </Button>
+        { returnPostLikeBtn() }
       </Flex>
 
       <Flex

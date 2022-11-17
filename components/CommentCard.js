@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
+
 import {
   Flex,
   Text,
@@ -7,6 +10,84 @@ import {
 } from '@chakra-ui/react';
 
 export const CommentCard = ({ commentData }) => {
+  const { data: session } = useSession();
+  const [ likeState, setLikeState ] = useState( commentData.likes );
+
+  //function that likes comment
+  const handleLike = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/comment/like',
+        withCredentials: true,
+        data: {
+          commentId: commentData._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      setLikeState( likeState => [ ...likeState, session.user.id ] );
+    }
+  };
+
+  //function to unlike comment
+  const handleUnlike = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/comment/unlike',
+        withCredentials: true,
+        data: {
+          postId: commentData._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      const filteredArray = likeState.filter( user => user !== session.user.id );
+      setLikeState( filteredArray );
+    }
+  };
+
+  //function that check if button is like or unlike
+  const returnLikeBtn = () => {
+    const found = likeState.find( user => user === session.user.id );
+
+    if( !found ) {
+      return <Button
+        size={ 'sm' }
+        backgroundColor={ 'transparent' }
+        borderWidth={ '1px' }
+        borderColor={ 'red.500' }
+        onClick={ () => handleLike() }
+      >
+        Like
+      </Button>
+    }
+    else {
+      return <Button
+        size={ 'sm' }
+        backgroundColor={ 'transparent' }
+        borderWidth={ '1px' }
+        borderColor={ 'red.500' }
+        onClick={ () => handleUnlike() }
+      >
+        Unlike
+      </Button>
+    }
+  };
+
   return (
     <Flex
       direction='column'
@@ -54,17 +135,9 @@ export const CommentCard = ({ commentData }) => {
           borderWidth='1px'
           borderColor='red.500'
         >
-          num.likes
+          { likeState.length } Likes
         </Button>
-        <Button
-          onClick={ () => console.log( 'comment like' ) }
-          backgroundColor='transparent'
-          size='sm'
-          borderWidth='1px'
-          borderColor='red.500'
-        >
-          Like
-        </Button>
+        { returnLikeBtn() }
       </Flex>
 
     </Flex>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import connectMongo from '../utils/connectMongo';
 import User from '../models/userModel';
 import Post from '../models/postModel';
+import Comment from '../models/commentModel';
 import { authOptions } from './api/auth/[...nextauth]';
 
 import { ProfileCard } from '../components/ProfileCard';
@@ -12,8 +13,15 @@ import { UpdateProfileForm } from '../components/UpdateProfileForm';
 
 import { Flex } from "@chakra-ui/react";
 
-export default function Profile({ currentUser, userPost }) {
+export default function Profile({ currentUser, userPost, comments }) {
   const [ formOpen, setFormOpen ] = useState( false );
+
+  //function to return filtered comments to pass as props
+  const returnFilteredComments = ( someData ) => {
+    const filteredComments = comments.filter( comment => comment.post === someData._id );
+
+    return filteredComments;
+  };
 
   return(
     <Flex
@@ -23,7 +31,7 @@ export default function Profile({ currentUser, userPost }) {
       <ProfileCard userData={ currentUser } postLength={ userPost } setIsOpen={ setFormOpen } />
       {
         userPost.map((post) => {
-          return <PostCard key={ post._id } postData={ post } />
+          return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
         })
       }
       { formOpen ? ( <UpdateProfileForm setIsOpen={ setFormOpen } userData={ currentUser } /> ) : null }
@@ -39,13 +47,18 @@ export async function getServerSideProps( context ) {
       await connectMongo();
 
       const currentUser = await User.findById( session.user.id );
+
       const posts = await Post.find({ user: session.user.id }).sort({ date: -1 })
+        .populate({ path: 'user', model: User });
+
+      const comments = await Comment.find().sort({ date: -1 })
         .populate({ path: 'user', model: User });
   
       return {
         props: {
           currentUser: JSON.parse( JSON.stringify( currentUser )),
           userPost: JSON.parse( JSON.stringify( posts )),
+          comments: JSON.parse( JSON.stringify( comments ))
         },
       }
     }

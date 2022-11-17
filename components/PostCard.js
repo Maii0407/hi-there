@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 
 import { CommentOverlay } from './CommentOverlay';
 
@@ -16,14 +15,10 @@ import {
 
 export const PostCard = ({ postData, commentArray }) => {
   const { data: session } = useSession();
-  const router = useRouter();
-
-  // console.log({ postData });
   
   const [ commentOpen, setCommentOpen ] = useState( false );
   const [ likeState, setLikeState ] = useState( postData.likes );
 
-  console.log({ likeState });
   // this function returns a different link if pressing current users name in posts???
   const returnLink = () => {
     if( session.user.id=== postData.user._id ) {
@@ -53,9 +48,6 @@ export const PostCard = ({ postData, commentArray }) => {
     }
     finally {
       setLikeState( likeState => [ ...likeState, session.user.id ] );
-      // router.replace( router.asPath );
-      // const event = new Event("visibilitychange");
-      // document.dispatchEvent(event);
     }
   };
 
@@ -202,7 +194,15 @@ export const PostCard = ({ postData, commentArray }) => {
           Comment
         </Button>
       </Flex>
-      { commentOpen ? ( <CommentOverlay setIsOpen={ setCommentOpen } postData={ postData } commentArray={ commentArray } /> ) : null }
+      { commentOpen ? ( 
+        <CommentOverlay
+          setIsOpen={ setCommentOpen }
+          postData={ postData }
+          commentArray={ commentArray }
+          likeState={ likeState }
+          setLikeState={ setLikeState }
+        /> 
+      ) : null }
     </Flex>
   );
 };
