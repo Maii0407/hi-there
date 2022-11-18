@@ -9,6 +9,7 @@ import {
   Avatar
 } from '@chakra-ui/react';
 
+//TODO finish this
 export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
   const { data: session } = useSession();
 
@@ -63,7 +64,8 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
           direction={ 'column' }
         >
           <Text
-            fontSize={ 'xl' }
+            fontSize={ 'lg' }
+            marginLeft='10px'
           >
             { userData.name }
           </Text>
@@ -72,9 +74,18 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
 
       <Flex
         direction={ 'column' }
+        padding='0 10px'
       >
-        <Text>{ userData.profileBio }</Text>
-        <Text>{ userData.gender }</Text>
+        <Text
+          fontSize='sm'
+        >
+          { userData.profileBio }
+        </Text>
+        <Text
+          fontSize='sm'
+        >
+          { userData.gender }
+        </Text>
       </Flex>
 
       { returnDiffBtn() }

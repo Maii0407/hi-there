@@ -15,48 +15,61 @@ export const CommentCard = ({ commentData }) => {
 
   //function that likes comment
   const handleLike = async () => {
-    try {
-      const response = await axios({
-        method: 'put',
-        url: '/api/comment/like',
-        withCredentials: true,
-        data: {
-          commentId: commentData._id,
-          userId: session.user.id
-        },
-      });
-  
-      return response.data;
-    }
-    catch( error ) {
-      console.log( error );
-    }
-    finally {
+    if( !commentData._id ) {
+      console.log('liking this lol');
       setLikeState( likeState => [ ...likeState, session.user.id ] );
+    }
+    else {
+      try {
+        const response = await axios({
+          method: 'put',
+          url: '/api/comment/like',
+          withCredentials: true,
+          data: {
+            commentId: commentData._id,
+            userId: session.user.id
+          },
+        });
+    
+        return response.data;
+      }
+      catch( error ) {
+        console.log( error );
+      }
+      finally {
+        setLikeState( likeState => [ ...likeState, session.user.id ] );
+      }
     }
   };
 
   //function to unlike comment
   const handleUnlike = async () => {
-    try {
-      const response = await axios({
-        method: 'put',
-        url: '/api/comment/unlike',
-        withCredentials: true,
-        data: {
-          postId: commentData._id,
-          userId: session.user.id
-        },
-      });
-  
-      return response.data;
-    }
-    catch( error ) {
-      console.log( error );
-    }
-    finally {
+    if( !commentData._id ) {
+      console.log('unliking this lol');
       const filteredArray = likeState.filter( user => user !== session.user.id );
       setLikeState( filteredArray );
+    }
+    else {
+      try {
+        const response = await axios({
+          method: 'put',
+          url: '/api/comment/unlike',
+          withCredentials: true,
+          data: {
+            postId: commentData._id,
+            userId: session.user.id
+          },
+        });
+    
+        return response.data;
+      }
+      catch( error ) {
+        console.log( error );
+      }
+      finally {
+        const filteredArray = likeState.filter( user => user !== session.user.id );
+        setLikeState( filteredArray );
+      }
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 import { CommentCard } from './CommentCard';
 
@@ -14,8 +15,10 @@ import {
 } from '@chakra-ui/react';
 
 export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, setLikeState }) => {
+  const router = useRouter();
   const { data: session } = useSession();
 
+  const [ commentList, setCommentList ] = useState( commentArray );
   const [ contentState, setContentState ] = useState('');
 
   //this function handles if form is submitted
@@ -38,8 +41,17 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, s
       console.log( error );
     }
     finally {
+      setCommentList( commentList =>  [ {
+        content: contentState,
+        post: postData._id,
+        likes: [],
+        user: {
+          name: session.user.name,
+          image: session.user.image,
+          id: session.user.id
+        }
+      }, ...commentList]);
       setContentState('');
-      setIsOpen( false );
     }
   };
 
@@ -155,8 +167,8 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, s
         maxHeight='80vh'
       >
         {
-          commentArray.map(( comment ) => {
-            return <CommentCard key={ comment._id } commentData={ comment } />
+          commentList.map(( comment ) => {
+            return <CommentCard key={ comment.content } commentData={ comment } />
           })
         }
       </Flex>
