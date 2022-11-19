@@ -6,7 +6,7 @@ import Post from '../../models/postModel';
 import Comment from '../../models/commentModel';
 import { authOptions } from '../api/auth/[...nextauth]';
 
-import { ProfileCard } from '../../components/ProfileCard';
+import { StrangerCard } from '../../components/StrangerCard';
 import { PostCard } from '../../components/PostCard';
 
 import {
@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 //TODO finish this
-export default function StrangerProfile({ stranger, strangerPosts, comments }) {
+export default function StrangerProfile({ currentUser, stranger, strangerPosts, comments }) {
   //function to return filtered comments to pass as props
   const returnFilteredComments = ( someData ) => {
     const filteredComments = comments.filter( comment => comment.post === someData._id );
@@ -23,13 +23,14 @@ export default function StrangerProfile({ stranger, strangerPosts, comments }) {
   };
 
   console.log({ stranger });
+  console.log({ currentUser });
 
   return(
     <Flex
       direction={ 'column' }
       color={ 'red.500' }
     >
-      <ProfileCard userData={ stranger } postLength={ strangerPosts } />
+      <StrangerCard strangerData={ stranger } postLength={ strangerPosts } userData={ currentUser } />
       {
         strangerPosts.map((post) => {
           return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
@@ -47,6 +48,8 @@ export async function getServerSideProps( context ) {
       const { id } = context.query;
       await connectMongo();
   
+      const currentUser = await User.findById( session.user.id );
+
       const strangerData = await User.findById( id );
   
       const strangerPosts = await Post.find({ user: id }).sort({ date: -1 })
@@ -57,6 +60,7 @@ export async function getServerSideProps( context ) {
   
       return {
         props: {
+          currentUser: JSON.parse( JSON.stringify( currentUser )),
           stranger: JSON.parse( JSON.stringify( strangerData )),
           strangerPosts: JSON.parse( JSON.stringify( strangerPosts )),
           comments: JSON.parse( JSON.stringify( comments ))

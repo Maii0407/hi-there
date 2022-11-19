@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
+
+import { BtnOnFriends, BtnOnRequest, BtnOnReceived, BtnOnAddFriend } from './RequestBtns';
 
 import {
   Flex,
@@ -9,8 +11,29 @@ import {
 } from '@chakra-ui/react';
 
 //TODO finish this
-export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
+export const StrangerCard = ({ strangerData, userData, postLength }) => {
   const { data: session } = useSession();
+
+  //TODO add the axios requests functions
+  //TODO finish this
+  const returnBtn = () => {
+    const strangerIsFriend = userData.friends.find( friend => friend._id === strangerData._id );
+    const strangerOnRequest = userData.requestsSent.find( stranger => stranger === strangerData._id );
+    const strangerOnReceived = userData.requestsReceived.find( stranger => stranger._id === strangerData._id );
+
+    if( strangerIsFriend ) {
+      return <BtnOnFriends />;
+    }
+    if( strangerOnRequest ) {
+      return <BtnOnRequest />;
+    }
+    if( strangerOnReceived ) {
+      return <BtnOnReceived />;
+    }
+    if( !strangerIsFriend || !strangerOnRequest ) {
+      return <BtnOnAddFriend />;
+    }
+  };
 
   return (
     <Flex
@@ -23,8 +46,8 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
         padding={ '10px' }
       >
         <Avatar
-          src={ userData.image }
-          alt={ userData.name }
+          src={ strangerData.image }
+          alt={ strangerData.name }
           size={ 'xl' }
           borderWidth={ '5px' }
           borderColor={ 'red.500' }
@@ -37,7 +60,7 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
             fontSize={ 'lg' }
             marginLeft='10px'
           >
-            { userData.name }
+            { strangerData.name }
           </Text>
         </Flex>
       </Flex>
@@ -49,26 +72,16 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
         <Text
           fontSize='sm'
         >
-          { userData.profileBio }
+          { strangerData.profileBio }
         </Text>
         <Text
           fontSize='sm'
         >
-          { userData.gender }
+          { strangerData.gender }
         </Text>
       </Flex>
 
-      <Button
-        backgroundColor={ 'red.500' }
-        color={ 'gray.900' }
-        borderWidth={ '5px' }
-        borderStyle={ 'double' }
-        borderColor={ 'gray.900' }
-        margin={ '5px 10px' }
-        onClick={ () => setIsOpen( true ) }
-      >
-        Edit Profile
-      </Button>
+      { returnBtn() }
 
       <Flex
         direction={ 'row' }
@@ -89,7 +102,7 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
           size={ 'sm' }
           backgroundColor={ 'transparent' }
         >
-          { userData.friends.length } Friends
+          { strangerData.friends.length } Friends
         </Button>
       </Flex>
     </Flex>
