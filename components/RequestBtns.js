@@ -1,11 +1,18 @@
 import React from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 import { 
   Flex,
   Button
 } from '@chakra-ui/react';
 
-export const BtnOnFriends = ({ btnFunc }) => {
+//TODO finish this
+export const BtnOnFriends = ({ stranger }) => {
+  console.log({ userData });
+  console.log({ strangerData });
+
   return (
     <Flex
       direction='row'
@@ -38,7 +45,8 @@ export const BtnOnFriends = ({ btnFunc }) => {
   );
 };
 
-export const BtnOnRequest = ({ btnFunc }) => {
+//TODO finish this
+export const BtnOnRequest = ({ stranger }) => {
   return (
     <Flex
       direction='row'
@@ -71,7 +79,8 @@ export const BtnOnRequest = ({ btnFunc }) => {
   );
 };
 
-export const BtnOnReceived = ({ btnFunc }) => {
+//TODO finish this
+export const BtnOnReceived = ({ stranger }) => {
   return (
     <Flex
       direction='row'
@@ -104,15 +113,41 @@ export const BtnOnReceived = ({ btnFunc }) => {
   );
 };
 
-export const BtnOnAddFriend = ({ btnFunc }) => {
+export const BtnOnAddFriend = ({ stranger }) => {
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const handleSendReq = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/user/sendrequest',
+        withCredentials: true,
+        data: {
+          strangerId: stranger._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      router.replace( router.asPath );
+    }
+  };
+
   return(
     <Button
-    backgroundColor={ 'red.500' }
-    color={ 'gray.900' }
-    borderWidth={ '5px' }
-    borderStyle={ 'double' }
-    borderColor={ 'gray.900' }
-    margin='5px 10px'
+      onClick={ () => handleSendReq() }
+      backgroundColor={ 'red.500' }
+      color={ 'gray.900' }
+      borderWidth={ '5px' }
+      borderStyle={ 'double' }
+      borderColor={ 'gray.900' }
+      margin='5px 10px'
     >
       Send Friend Request
     </Button>

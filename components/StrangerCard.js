@@ -22,16 +22,16 @@ export const StrangerCard = ({ strangerData, userData, postLength }) => {
     const strangerOnReceived = userData.requestsReceived.find( stranger => stranger._id === strangerData._id );
 
     if( strangerIsFriend ) {
-      return <BtnOnFriends />;
+      return <BtnOnFriends stranger={ strangerData } />;
     }
     if( strangerOnRequest ) {
-      return <BtnOnRequest />;
+      return <BtnOnRequest stranger={ strangerData } />;
     }
     if( strangerOnReceived ) {
-      return <BtnOnReceived />;
+      return <BtnOnReceived stranger={ strangerData } />;
     }
     if( !strangerIsFriend || !strangerOnRequest ) {
-      return <BtnOnAddFriend />;
+      return <BtnOnAddFriend stranger={ strangerData } />;
     }
   };
 

@@ -22,9 +22,6 @@ export default function StrangerProfile({ currentUser, stranger, strangerPosts, 
     return filteredComments;
   };
 
-  console.log({ stranger });
-  console.log({ currentUser });
-
   return(
     <Flex
       direction={ 'column' }

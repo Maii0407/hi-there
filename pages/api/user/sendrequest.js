@@ -13,16 +13,16 @@ export default async function handler( req, res ) {
         await connectMongo();
 
         const user = await User.updateOne({
-          _id: req.user.id //TODO change this
+          _id: req.body.userId 
         },
         {
-          $push: { requestsSent: req.params.strangerId } //TODO change this
+          $push: { requestsSent: req.body.strangerId } 
         });
     
         const stranger = await User.updateOne({
-          _id: req.params.strangerId //TODO change this
+          _id: req.body.strangerId 
         },{
-          $push: { requestsReceived: req.user.id } //TODO change this
+          $push: { requestsReceived: req.body.userId } 
         });
     
         return res.status( 200 ).json({ message: 'request sent' });

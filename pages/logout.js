@@ -16,10 +16,10 @@ export default function Logout() {
 
   useEffect(() => {
     if( session ) {
-      router.push( router.asPath );
+      router.replace( router.asPath );
     }
     else {
-      router.push( '/login' );
+      router.replace( '/login' );
     }
   },[]);
 
