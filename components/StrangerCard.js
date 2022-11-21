@@ -10,12 +10,9 @@ import {
   Avatar
 } from '@chakra-ui/react';
 
-//TODO finish this
 export const StrangerCard = ({ strangerData, userData, postLength }) => {
   const { data: session } = useSession();
 
-  //TODO add the axios requests functions
-  //TODO finish this
   const returnBtn = () => {
     const strangerIsFriend = userData.friends.find( friend => friend._id === strangerData._id );
     const strangerOnRequest = userData.requestsSent.find( stranger => stranger === strangerData._id );

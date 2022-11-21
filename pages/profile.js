@@ -16,8 +16,6 @@ import { Flex } from "@chakra-ui/react";
 export default function Profile({ currentUser, userPost, comments }) {
   const [ formOpen, setFormOpen ] = useState( false );
 
-  console.log( currentUser );
-
   //function to return filtered comments to pass as props
   const returnFilteredComments = ( someData ) => {
     const filteredComments = comments.filter( comment => comment.post === someData._id );
