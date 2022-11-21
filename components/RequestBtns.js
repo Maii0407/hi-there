@@ -8,10 +8,31 @@ import {
   Button
 } from '@chakra-ui/react';
 
-//TODO finish this
 export const BtnOnFriends = ({ stranger }) => {
-  console.log({ userData });
-  console.log({ strangerData });
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const handleUnfriend = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/user/unfriend',
+        withCredentials: true,
+        data: {
+          strangerId: stranger._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      router.replace( router.asPath );
+    }
+  };
 
   return (
     <Flex
@@ -31,6 +52,7 @@ export const BtnOnFriends = ({ stranger }) => {
         Friends
       </Button>
       <Button
+        onClick={ () => handleUnfriend() }
         backgroundColor={ 'red.500' }
         color={ 'gray.900' }
         borderWidth={ '5px' }
@@ -45,8 +67,32 @@ export const BtnOnFriends = ({ stranger }) => {
   );
 };
 
-//TODO finish this
 export const BtnOnRequest = ({ stranger }) => {
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const handleCancelReq = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/user/cancelrequest',
+        withCredentials: true,
+        data: {
+          strangerId: stranger._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      router.replace( router.asPath );
+    }
+  };
+
   return (
     <Flex
       direction='row'
@@ -65,6 +111,7 @@ export const BtnOnRequest = ({ stranger }) => {
         Requested
       </Button>
       <Button
+        onClick={ () => handleCancelReq() }
         backgroundColor={ 'red.500' }
         color={ 'gray.900' }
         borderWidth={ '5px' }
@@ -79,8 +126,55 @@ export const BtnOnRequest = ({ stranger }) => {
   );
 };
 
-//TODO finish this
+
 export const BtnOnReceived = ({ stranger }) => {
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const handleAcceptReq = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/user/acceptrequest',
+        withCredentials: true,
+        data: {
+          strangerId: stranger._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      router.replace( router.asPath );
+    }
+  };
+
+  const handleRejectReq = async () => {
+    try {
+      const response = await axios({
+        method: 'put',
+        url: '/api/user/rejectrequest',
+        withCredentials: true,
+        data: {
+          strangerId: stranger._id,
+          userId: session.user.id
+        },
+      });
+  
+      return response.data;
+    }
+    catch( error ) {
+      console.log( error );
+    }
+    finally {
+      router.replace( router.asPath );
+    }
+  };
+
   return (
     <Flex
       direction='row'
@@ -88,6 +182,7 @@ export const BtnOnReceived = ({ stranger }) => {
       margin='5px 10px'
     >
       <Button
+        onClick={ () => handleAcceptReq() }
         backgroundColor={ 'red.500' }
         color={ 'gray.900' }
         borderWidth={ '5px' }
@@ -99,6 +194,7 @@ export const BtnOnReceived = ({ stranger }) => {
         Accept Request
       </Button>
       <Button
+        onClick={ () => handleRejectReq() }
         backgroundColor={ 'red.500' }
         color={ 'gray.900' }
         borderWidth={ '5px' }

@@ -13,16 +13,16 @@ export default async function handler( req, res ) {
         await connectMongo();
 
         const user = await User.updateOne({
-          _id: req.user.id //TODO change this
+          _id: req.body.userId 
         },
         {
-          $pull: { requestsReceived: { $in: [ req.params.strangerId ] } } //TODO change this
+          $pull: { requestsReceived: { $in: [ req.body.strangerId ] } } 
         });
     
         const stranger = await User.updateOne({
-          _id: req.params.strangerId //TODO change this
+          _id: req.body.strangerId 
         },{
-          $pull: { requestsSent: { $in: [ req.user.id ] } } //TODO change this
+          $pull: { requestsSent: { $in: [ req.body.userId ] } } 
         });
     
         return res.status( 200 ).json({ message: 'request rejected' });

@@ -13,17 +13,17 @@ export default async function handler( req, res ) {
         await connectMongo();
 
         const user = await User.updateOne({
-          _id: req.user.id //TODO change this
+          _id: req.body.userId 
         },
         {
-          $pull: { friends: { $in: [ req.params.strangerId ]}} //TODO change this
+          $pull: { friends: { $in: [ req.body.strangerId ]}} 
         });
     
         const stranger = await User.updateOne({
-          _id: req.params.strangerId //TODO change this
+          _id: req.body.strangerId 
         },
         {
-          $pull: { friends: { $in: [ req.user.id ]}} //TODO change this
+          $pull: { friends: { $in: [ req.body.userId ]}} 
         });
     
         return res.status( 200 ).json({ message: 'unfriending' });
