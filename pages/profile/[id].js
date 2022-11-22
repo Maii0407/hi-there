@@ -13,7 +13,6 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-//TODO finish this
 export default function StrangerProfile({ currentUser, stranger, strangerPosts, comments }) {
   //function to return filtered comments to pass as props
   const returnFilteredComments = ( someData ) => {

@@ -46,6 +46,7 @@ export default function RequestList({ currentUser }) {
                 color='red.500'
                 width='100%'
                 textAlign='center'
+                marginTop='20px'
               >
                 So Empty...
               </Text>
@@ -68,8 +69,7 @@ export async function getServerSideProps( context ) {
       await connectMongo();
 
       const currentUser = await User.findById( session.user.id )
-        .populate({ path: 'requestsReceived', model: User })
-        .populate({ path: 'friends', model: User });
+        .populate({ path: 'requestsReceived', model: User });
   
       return {
         props: {
