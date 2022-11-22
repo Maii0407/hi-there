@@ -9,8 +9,6 @@ import { authOptions } from './api/auth/[...nextauth]';
 
 import { PostCard } from '../components/PostCard';
 import {
-  Box,
-  Button,
   Flex
 } from "@chakra-ui/react";
 
@@ -56,7 +54,8 @@ export async function getServerSideProps( context ) {
     try {
       await connectMongo();
 
-      const currentUser = await User.findById( session.user.id );
+      const currentUser = await User.findById( session.user.id )
+        .populate({ path: 'friends', model: User });
       
       const posts = await Post.find().sort({ date: -1 })
       .populate({ path: 'user', model: User });

@@ -12,11 +12,11 @@ import {
 
 export const StrangerCard = ({ strangerData, userData, postLength }) => {
   const { data: session } = useSession();
-
+  
   const returnBtn = () => {
-    const strangerIsFriend = userData.friends.find( friend => friend._id === strangerData._id );
+    const strangerIsFriend = userData.friends.find( friend => friend === strangerData._id );
     const strangerOnRequest = userData.requestsSent.find( stranger => stranger === strangerData._id );
-    const strangerOnReceived = userData.requestsReceived.find( stranger => stranger._id === strangerData._id );
+    const strangerOnReceived = userData.requestsReceived.find( stranger => stranger === strangerData._id );
 
     if( strangerIsFriend ) {
       return <BtnOnFriends stranger={ strangerData } />;
