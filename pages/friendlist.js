@@ -6,6 +6,8 @@ import connectMongo from '../utils/connectMongo';
 import User from '../models/userModel';
 import { authOptions } from './api/auth/[...nextauth]';
 
+import { FriendCard } from '../components/FriendCard';
+
 import { 
   Flex,
   Text
@@ -54,7 +56,7 @@ export default function FriendList({ currentUser }) {
                 So Empty...
               </Text>
             ) : currentUser.friends.map(( friend ) => {
-              return <Text color='red.500' key={ friend._id }>{ friend.name }</Text>
+              return <FriendCard key={ friend._id } friendData={ friend } />
             })
           }
         </Flex>
