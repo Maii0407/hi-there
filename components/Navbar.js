@@ -218,6 +218,4 @@ export const Navbar = () => {
       </Box>
     )
   };
-
-  return;
 };

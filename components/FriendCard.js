@@ -9,12 +9,12 @@ import {
   Link,
   Button,
   Avatar,
-  IconButton
+  IconButton,
+  Box
  } from '@chakra-ui/react';
 
- import { HamburgerIcon } from '@chakra-ui/icons';
+ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
-//TODO finish this
 export const FriendCard = ({ friendData }) => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -39,6 +39,7 @@ export const FriendCard = ({ friendData }) => {
       console.log( error );
     }
     finally {
+      setOpenOptions( false );
       router.replace( router.asPath );
     }
   };
@@ -80,11 +81,76 @@ export const FriendCard = ({ friendData }) => {
       </Flex>
 
       <IconButton
+        onClick={ () => setOpenOptions( true ) }
         color='red.500'
         variant='ghost'
         aria-label='Options Btn'
         icon={ <HamburgerIcon /> }
       />
+
+      {
+        openOptions ? (
+          <Box
+            position='fixed'
+            height='100%'
+            width='100%'
+            backgroundColor='rgba(0, 0, 0, 0.5)'
+            zIndex='5'
+            top='0'
+            right='0'
+          >
+            <Flex
+              direction='column'
+              position='fixed'
+              width='100%'
+              bottom='0'
+              right='0'
+              backgroundColor='black'
+            >
+
+              <Flex
+                direction='row'
+                justifyContent='space-between'
+                alignItems='center'
+                padding='5px'
+              >
+                <Avatar
+                  src={ friendData.image }
+                  alt={ friendData.name }
+                />
+                <NextLink
+                  href={ `/profile/${ friendData._id }` }
+                  passHref
+                >
+                  <Link
+                    color={ 'red.500' }
+                    fontSize='15px'
+                    textAlign='center'
+                  >
+                    { friendData.name }
+                  </Link>
+                </NextLink>
+                <IconButton
+                  onClick={ () => setOpenOptions( false ) }
+                  color='red.500'
+                  variant='ghost'
+                  aria-label='Close Btn'
+                  icon={ <CloseIcon /> }
+                />
+              </Flex>
+
+              <Button
+                onClick={ () => handleUnfriend() }
+                backgroundColor='red.500'
+                color='gray.900'
+                margin='10px'
+              >
+                Unfriend
+              </Button>
+            </Flex>
+          </Box>
+        ) : null
+      }
     </Flex>
   );
 };
