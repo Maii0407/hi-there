@@ -1,7 +1,6 @@
 import { signIn, getProviders } from 'next-auth/react';
 
 import {
-  Box,
   Flex,
   Button,
   Heading,
@@ -20,6 +19,7 @@ export default function Login({ providers }) {
       display='flex'
       justifyContent='center'
       alignItems='center'
+      padding={{ lg: '10%' }}
     >
       <Flex
         direction='column'
