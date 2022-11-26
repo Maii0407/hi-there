@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 
 import { MobileNav } from './MobileNav';
 import { PostForm } from './PostForm';
+import { DesktopNav } from './DesktopNav';
 
 import {
   Box,
@@ -16,16 +17,20 @@ export const Navbar = () => {
   if( session ) {
     return (
       <Box
-        p='0 10px'
-        borderBottom='5px'
+        width={{ lg: '20%' }}
+        height={{ lg: '100%' }}
+        padding='0 10px'
+        borderBottom={{ base: '5px', lg: 'none' }}
         borderColor='red.500'
         borderStyle='double'
         backgroundColor='gray.900'
-        position='sticky'
+        position={{ base: 'sticky', lg: 'fixed' }}
         top='0'
+        left={{ lg: '0' }}
         zIndex='5'
       >
-        <MobileNav />
+        <MobileNav setFormOpen={ setFormOpen } />
+        <DesktopNav setFormOpen={ setFormOpen } />
 
         {
           formOpen ? (

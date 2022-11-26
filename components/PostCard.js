@@ -105,7 +105,6 @@ export const PostCard = ({ postData, commentArray }) => {
   return (
     <Flex
       direction={ 'column' }
-      margin={ '10px 0' }
       backgroundColor={ 'gray.900' }
       borderWidth={ '1px' }
       borderColor={ 'red.500' }
@@ -113,8 +112,6 @@ export const PostCard = ({ postData, commentArray }) => {
       <Flex
         direction={ 'row' }
         padding={ '10px' }
-        borderBottom={ '1px solid' }
-        borderColor={ 'red.500' }
       >
         <Avatar
           src={ postData.user.image }
@@ -153,46 +150,44 @@ export const PostCard = ({ postData, commentArray }) => {
 
       <Flex
         direction={ 'row' }
-        justifyContent={ 'space-between' }
+        justifyContent={{ base: 'space-between', lg: 'flex-start' }}
         padding={ '10px 10px' }
-        borderBottom={ '1px' }
-        borderColor={ 'red.500' }
       >
-        <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
-          borderWidth={ '1px' }
-          borderColor={ 'red.500' }
-          onClick={ () => console.log( postData ) }
+        <Flex
+          direction='row'
+          alignItems='center'
+          marginRight={{ lg: '20px' }}
         >
-          { likeState.length } Likes
-        </Button>
-        <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
-          borderWidth={ '1px' }
-          borderColor={ 'red.500' }
-          onClick={ () => setCommentOpen( true ) }
-        >
-          { commentArray.length } Comments
-        </Button>
-      </Flex>
+          { returnLikeBtn() }
+          <Text
+            color='red.500'
+            padding='5px'
+          >
+            { likeState.length }
+          </Text>
+        </Flex>
 
-      <Flex
-        direction={ 'row' }
-        justifyContent={ 'space-between' }
-        padding={ '10px 10px' }
-      >
-        { returnLikeBtn() }
-        <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
-          borderWidth={ '1px' }
-          borderColor={ 'red.500' }
-          onClick={ () => setCommentOpen( true ) }
+        <Flex
+          direction='row'
+          alignItems='center'
         >
-          Comment
-        </Button>
+          <Button
+            size={ 'sm' }
+            backgroundColor={ 'transparent' }
+            borderWidth={ '1px' }
+            borderColor={ 'red.500' }
+            onClick={ () => setCommentOpen( true ) }
+          >
+            Comment
+          </Button>
+          <Text
+            color='red.500'
+            padding='5px'
+          >
+            { commentArray.length }
+          </Text>
+        </Flex>
+        
       </Flex>
       { commentOpen ? ( 
         <CommentOverlay

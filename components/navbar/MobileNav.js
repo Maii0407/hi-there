@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import NextLink from 'next/link';
-import { useSession } from 'next-auth/react';
 
 import { links } from '../data/pageLinkData';
 
@@ -16,9 +15,7 @@ import {
 
  import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
-export const MobileNav = ({}) => {
-  const { data: session } = useSession();
-
+export const MobileNav = ({ setFormOpen }) => {
   const [ mobileNavOpen, setMobileNavOpen ] = useState( false );
 
   const handleNav = () => {
@@ -38,26 +35,26 @@ export const MobileNav = ({}) => {
     >
       <Flex
         height='64px'
-        alignItems={ 'center' }
-        justifyContent={ 'space-between' }
+        alignItems='center'
+        justifyContent='space-between'
       >
         <IconButton
-          size={ 'md' }
+          size='md'
           icon={ mobileNavOpen ? <CloseIcon color={ 'red.500' }/> : <HamburgerIcon color={ 'red.500' }/> }
           onClick={ () => handleNav() }
-          backgroundColor={ 'transparent' }
+          backgroundColor='transparent'
         />
         <Text
-          fontSize={ 'md' }
-          color={ 'red.500' }
+          fontSize='md'
+          color='red.500'
         >
           hiTHERE
         </Text>
         <Button
           leftIcon={ <AddIcon/> }
-          color={ 'gray.900' }
-          size={ 'sm' }
-          backgroundColor={ 'red.500' }
+          color='gray.900' 
+          size='sm' 
+          backgroundColor='red.500'
           onClick={ () => setFormOpen( true ) }
         >
           Post
@@ -67,11 +64,11 @@ export const MobileNav = ({}) => {
       {
         mobileNavOpen ? (
           <Box
-            pb={ 4 }
+            paddingBottom='15px'
           >
             <Stack
-              as={ 'nav' }
-              spacing={ 4 }
+              as='nav'
+              spacing='15px'
             >
               {
                 links.map(( link ) => {
@@ -81,7 +78,7 @@ export const MobileNav = ({}) => {
                     key={ link.name }
                   >
                     <Link
-                      color={ 'red.500' }
+                      color='red.500'
                       onClick={ () => setMobileNavOpen( false ) }
                     >
                       { link.name }

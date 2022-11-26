@@ -1,4 +1,5 @@
 import { useSession } from 'next-auth/react';
+import { unstable_getServerSession } from 'next-auth';
 
 import connectMongo from '../utils/connectMongo';
 import Post from '../models/postModel';
@@ -8,9 +9,7 @@ import Comment from '../models/commentModel';
 import { PostCard } from '../components/PostCard';
 
 import {
-  Flex,
-  Button,
-  Text
+  Flex
 } from "@chakra-ui/react";
 
 export default function Discover({ posts, comments }) {
@@ -28,6 +27,8 @@ export default function Discover({ posts, comments }) {
       <Flex
         direction={ 'column' }
         color={ 'red.500' }
+        justifyContent={{ lg: 'center' }}
+        padding={{ lg: '0 100px' }}
       >
         {
           posts.map(( post ) => {
@@ -39,28 +40,39 @@ export default function Discover({ posts, comments }) {
   }
 };
 
-//TODO use unstable get server session
 export async function getServerSideProps( context ) {
-  try {
-    await connectMongo();
+  const session = await unstable_getServerSession(context.req, context.res, authOptions);
 
-    const posts = await Post.find().sort({ date: -1 })
-      .populate({ path: 'user', model: User });
-    
-    const comments = await Comment.find().sort({ date: -1 })
-      .populate({ path: 'user', model: User });
+  if( session ) {
+    try {
+      await connectMongo();
 
-    return {
-      props: {
-        posts: JSON.parse( JSON.stringify( posts )),
-        comments: JSON.parse( JSON.stringify( comments )),
+      const posts = await Post.find().sort({ date: -1 })
+        .populate({ path: 'user', model: User });
+      
+      const comments = await Comment.find().sort({ date: -1 })
+        .populate({ path: 'user', model: User });
+
+      return {
+        props: {
+          posts: JSON.parse( JSON.stringify( posts )),
+          comments: JSON.parse( JSON.stringify( comments )),
+        }
+      };
+    }
+    catch( error ) {
+      console.log( error );
+      return {
+        notFound: true,
       }
-    };
+    }
   }
-  catch( error ) {
-    console.log( error );
+  else {
     return {
-      notFound: true,
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
     }
   }
 };
