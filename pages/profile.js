@@ -7,9 +7,9 @@ import Post from '../models/postModel';
 import Comment from '../models/commentModel';
 import { authOptions } from './api/auth/[...nextauth]';
 
-import { ProfileCard } from '../components/ProfileCard';
+import { ProfileCard } from '../components/profilePage/ProfileCard';
 import { PostCard } from '../components/PostCard';
-import { UpdateProfileForm } from '../components/UpdateProfileForm';
+import { UpdateProfileForm } from '../components/profilePage/UpdateProfileForm';
 
 import { Flex } from "@chakra-ui/react";
 

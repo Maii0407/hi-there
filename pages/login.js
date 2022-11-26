@@ -23,7 +23,7 @@ export default function Login({ providers }) {
     >
       <Flex
         direction='column'
-        marginBottom='20px'
+        marginBottom={{ base: '20px' }}
       >
         <Heading
           color='red.500'

@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { unstable_getServerSession } from 'next-auth';
 
+import { authOptions } from './api/auth/[...nextauth]';
 import connectMongo from '../utils/connectMongo';
 import Post from '../models/postModel';
 import User from '../models/userModel';

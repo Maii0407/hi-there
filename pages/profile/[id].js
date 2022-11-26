@@ -6,7 +6,7 @@ import Post from '../../models/postModel';
 import Comment from '../../models/commentModel';
 import { authOptions } from '../api/auth/[...nextauth]';
 
-import { StrangerCard } from '../../components/StrangerCard';
+import { StrangerCard } from '../../components/profilePage/StrangerCard';
 import { PostCard } from '../../components/PostCard';
 
 import {
