@@ -15,6 +15,18 @@ const theme = extendTheme({
     global: {
       'html, body': {
         backgroundColor: 'gray.800'
+      },
+      button: {
+        _hover: {
+          filter: 'auto',
+          brightness: '70%'
+        }
+      },
+      a: {
+        _hover: {
+          filter: 'auto',
+          brightness: '70%'
+        }
       }
     }
   }

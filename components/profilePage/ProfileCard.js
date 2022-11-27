@@ -1,97 +1,97 @@
 import React from 'react';
-import { useSession } from 'next-auth/react';
 
 import {
   Flex,
   Button,
   Text,
-  Avatar
+  Avatar,
+  Heading
 } from '@chakra-ui/react';
 
-//TODO finish this
 export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
-  const { data: session } = useSession();
-
   return (
     <Flex
-      direction={ 'column' }
-      justifyContent={ 'center' }
+      direction='column'
+      borderRight={{ lg: '1px solid' }}
+      borderLeft={{ lg: '1px solid' }}
+      borderColor='red.500'
     >
+
       <Flex
-        direction={ 'row' }
-        justifyContent={ 'space-around' }
-        padding={ '10px' }
+        direction='row'
+        justifyContent='space-between'
+        alignItems='end'
+        padding='10px'
       >
         <Avatar
           src={ userData.image }
           alt={ userData.name }
-          size={ 'xl' }
-          borderWidth={ '5px' }
-          borderColor={ 'red.500' }
-          borderStyle={ 'double' }
+          size='xl'
+          borderWidth='5px'
+          borderColor='red.500'
+          borderStyle='double'
         />
-        <Flex
-          direction={ 'column' }
+        <Button
+          size={{ base: 'sm', lg: 'md' }}
+          backgroundColor='red.500'
+          color='gray.900'
+          borderWidth='5px'
+          borderStyle='double'
+          borderColor='gray.900'
+          onClick={ () => setIsOpen( true ) }
+          _hover
         >
-          <Text
-            fontSize={ 'lg' }
-            marginLeft='10px'
-          >
-            { userData.name }
-          </Text>
-        </Flex>
+          Edit Profile
+        </Button>
       </Flex>
 
       <Flex
-        direction={ 'column' }
-        padding='0 10px'
+        direction='column'
+        padding='10px'
       >
         <Text
-          fontSize='sm'
+          fontSize='lg'
         >
-          { userData.profileBio }
+          { userData.name }
         </Text>
         <Text
           fontSize='sm'
         >
           { userData.gender }
         </Text>
+        <Text
+          fontSize='sm'
+        >
+          { userData.profileBio }
+        </Text>
       </Flex>
 
-      <Button
-        backgroundColor={ 'red.500' }
-        color={ 'gray.900' }
-        borderWidth={ '5px' }
-        borderStyle={ 'double' }
-        borderColor={ 'gray.900' }
-        margin={ '5px 10px' }
-        onClick={ () => setIsOpen( true ) }
-      >
-        Edit Profile
-      </Button>
-
       <Flex
-        direction={ 'row' }
-        justifyContent={ 'space-around' }
-        backgroundColor={ 'gray.900' }
-        padding={ '10px' }size={ 'sm' }
-        marginTop={ '10px' }
-        borderWidth={ '1px 0 1px 0' }
-        borderColor={ 'red.500' }
+        direction='row'
+        justifyContent={{ base: 'space-around', lg: 'flex-start' }}
+        backgroundColor={{ base: 'gray.900', lg: 'transparent' }}
+        padding='10px'
+        size='sm'
+        marginTop='10px'
+        borderWidth={{ base: '1px 0 1px 0', lg: '0' }}
+        borderColor='red.500'
       >
         <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
+          size='sm'
+          backgroundColor='transparent'
+          _hover
         >
           { postLength.length } Posts
         </Button>
         <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
+          size='sm'
+          backgroundColor='transparent'
+          _hover
         >
           { userData.friends.length } Friends
         </Button>
       </Flex>
+
     </Flex>
   );
 };

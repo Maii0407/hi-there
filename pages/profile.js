@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { unstable_getServerSession } from 'next-auth';
 import { useState } from 'react';
 
@@ -14,6 +15,8 @@ import { UpdateProfileForm } from '../components/profilePage/UpdateProfileForm';
 import { Flex } from "@chakra-ui/react";
 
 export default function Profile({ currentUser, userPost, comments }) {
+  const { data: session } = useSession();
+
   const [ formOpen, setFormOpen ] = useState( false );
 
   //function to return filtered comments to pass as props
@@ -23,20 +26,23 @@ export default function Profile({ currentUser, userPost, comments }) {
     return filteredComments;
   };
 
-  return(
-    <Flex
-      direction={ 'column' }
-      color={ 'red.500' }
-    >
-      <ProfileCard userData={ currentUser } postLength={ userPost } setIsOpen={ setFormOpen } />
-      {
-        userPost.map((post) => {
-          return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
-        })
-      }
-      { formOpen ? ( <UpdateProfileForm setIsOpen={ setFormOpen } userData={ currentUser } /> ) : null }
-    </Flex>
-  )
+  if ( session ) {
+    return(
+      <Flex
+        direction={ 'column' }
+        color={ 'red.500' }
+        padding={{ lg: '0 100px' }}
+      >
+        <ProfileCard userData={ currentUser } postLength={ userPost } setIsOpen={ setFormOpen } />
+        {
+          userPost.map((post) => {
+            return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
+          })
+        }
+        { formOpen ? ( <UpdateProfileForm setIsOpen={ setFormOpen } userData={ currentUser } /> ) : null }
+      </Flex>
+    )
+  };
 };
 
 export async function getServerSideProps( context ) {

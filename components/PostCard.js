@@ -85,6 +85,7 @@ export const PostCard = ({ postData, commentArray }) => {
         borderWidth={ '1px' }
         borderColor={ 'red.500' }
         onClick={ () => handleLike() }
+        _hover
       >
         Like
       </Button>
@@ -96,6 +97,7 @@ export const PostCard = ({ postData, commentArray }) => {
         borderWidth={ '1px' }
         borderColor={ 'red.500' }
         onClick={ () => handleUnlike() }
+        _hover
       >
         Unlike
       </Button>
@@ -124,6 +126,7 @@ export const PostCard = ({ postData, commentArray }) => {
             as='a'
             size={ 'sm' }
             backgroundColor={ 'transparent' }
+            _hover
           >
             { postData.user.name }
           </Button>
@@ -177,6 +180,7 @@ export const PostCard = ({ postData, commentArray }) => {
             borderWidth={ '1px' }
             borderColor={ 'red.500' }
             onClick={ () => setCommentOpen( true ) }
+            _hover
           >
             Comment
           </Button>

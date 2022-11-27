@@ -60,7 +60,7 @@ export const DesktopNav = ({ setFormOpen }) => {
             color='gray.900'
             backgroundColor='red.500'
             borderRadius='10px'
-            _hover={{ filter: 'auto', brightness: '70%' }}
+            _hover
           >
             Post
           </Button>

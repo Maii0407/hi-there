@@ -55,6 +55,7 @@ export const MobileNav = ({ setFormOpen }) => {
           color='gray.900' 
           size='sm' 
           backgroundColor='red.500'
+          _hover
           onClick={ () => setFormOpen( true ) }
         >
           Post
