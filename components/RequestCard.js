@@ -33,7 +33,7 @@ export const RequestCard = ({ requestData }) => {
       console.log( error );
     }
     finally {
-      router.replace( router.asPath );
+      router.push( router.asPath );
     }
   };
 
@@ -55,13 +55,15 @@ export const RequestCard = ({ requestData }) => {
       console.log( error );
     }
     finally {
-      router.replace( router.asPath );
+      router.push( router.asPath );
     }
   };
 
   return(
     <Flex
-      direction='row'
+      direction={{ base: 'row', lg: 'column' }}
+      justifyContent={{ lg: 'center' }}
+      alignItems={{ lg: 'center' }}
       margin='5px'
       padding='5px 10px'
       border='1px'
@@ -71,7 +73,7 @@ export const RequestCard = ({ requestData }) => {
       <Avatar
         src={ requestData.image }
         alt={ requestData.name }
-        size='lg'
+        size={{ base: 'lg', lg: '2xl' }}
       />
 
       <Flex
@@ -87,20 +89,22 @@ export const RequestCard = ({ requestData }) => {
             color={ 'red.500' }
             fontSize='15px'
             textAlign='center'
+            padding={{ lg: '10px 0 5px' }}
           >
             { requestData.name }
           </Link>
         </NextLink>
 
         <Flex
-          justifyContent='space-around'
-          padding='5px'
+          justifyContent={{ base: 'space-around', lg: 'space-between' }}
+          padding={{ base: '5px', lg: '5px 0' }}
         >
           <Button
             onClick={ () => acceptReq() }
             variant='solid'
             backgroundColor='red.500'
             size='sm'
+            _hover
           >
             Accept
           </Button>
@@ -110,6 +114,7 @@ export const RequestCard = ({ requestData }) => {
             borderColor='red.500'
             color='red.500'
             size='sm'
+            _hover
           >
             Reject
           </Button>

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useSession } from 'next-auth/react';
+import React from 'react';
 
 import { BtnOnFriends, BtnOnRequest, BtnOnReceived, BtnOnAddFriend } from './RequestBtns';
 
@@ -11,8 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 export const StrangerCard = ({ strangerData, userData, postLength }) => {
-  const { data: session } = useSession();
-  
+
   const returnBtn = () => {
     const strangerIsFriend = userData.friends.find( friend => friend === strangerData._id );
     const strangerOnRequest = userData.requestsSent.find( stranger => stranger === strangerData._id );
@@ -34,74 +32,76 @@ export const StrangerCard = ({ strangerData, userData, postLength }) => {
 
   return (
     <Flex
-      direction={ 'column' }
-      justifyContent={ 'center' }
+      direction='column'
+      borderRight={{ lg: '1px solid' }}
+      borderLeft={{ lg: '1px solid' }}
+      borderColor='red.500'
     >
+
       <Flex
-        direction={ 'row' }
-        justifyContent={ 'space-around' }
-        padding={ '10px' }
+        direction='row'
+        justifyContent='space-between'
+        alignItems='end'
+        padding='10px'
       >
         <Avatar
           src={ strangerData.image }
           alt={ strangerData.name }
-          size={ 'xl' }
-          borderWidth={ '5px' }
-          borderColor={ 'red.500' }
-          borderStyle={ 'double' }
+          size='xl'
+          borderWidth='5px'
+          borderColor='red.500'
+          borderStyle='double'
         />
-        <Flex
-          direction={ 'column' }
-        >
-          <Text
-            fontSize={ 'lg' }
-            marginLeft='10px'
-          >
-            { strangerData.name }
-          </Text>
-        </Flex>
+        { returnBtn() }
       </Flex>
 
       <Flex
-        direction={ 'column' }
-        padding='0 10px'
+        direction='column'
+        padding='10px'
       >
         <Text
-          fontSize='sm'
+          fontSize='lg'
         >
-          { strangerData.profileBio }
+          { strangerData.name }
         </Text>
         <Text
           fontSize='sm'
         >
           { strangerData.gender }
         </Text>
+        <Text
+          fontSize='sm'
+        >
+          { strangerData.profileBio }
+        </Text>
       </Flex>
 
-      { returnBtn() }
-
       <Flex
-        direction={ 'row' }
-        justifyContent={ 'space-around' }
-        backgroundColor={ 'gray.900' }
-        padding={ '10px' }size={ 'sm' }
-        marginTop={ '10px' }
-        borderWidth={ '1px 0 1px 0' }
-        borderColor={ 'red.500' }
+        direction='row'
+        justifyContent={{ base: 'space-around', lg: 'flex-start' }}
+        backgroundColor={{ base: 'gray.900', lg: 'transparent' }}
+        padding='10px'
+        size='sm'
+        marginTop='10px'
+        borderWidth={{ base: '1px 0 1px 0', lg: '0' }}
+        borderColor='red.500'
       >
         <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
+          size='sm'
+          backgroundColor='transparent'
+          _hover
         >
           { postLength.length } Posts
         </Button>
         <Button
-          size={ 'sm' }
-          backgroundColor={ 'transparent' }
+          size='sm'
+          backgroundColor='transparent'
+          _hover
         >
           { strangerData.friends.length } Friends
         </Button>
       </Flex>
+
     </Flex>
   );
 };

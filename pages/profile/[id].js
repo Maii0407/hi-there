@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { unstable_getServerSession } from 'next-auth';
 
 import connectMongo from '../../utils/connectMongo';
@@ -6,7 +7,7 @@ import Post from '../../models/postModel';
 import Comment from '../../models/commentModel';
 import { authOptions } from '../api/auth/[...nextauth]';
 
-import { StrangerCard } from '../../components/profilePage/StrangerCard';
+import { StrangerCard } from '../../components/strangerProfilePage/StrangerCard';
 import { PostCard } from '../../components/PostCard';
 
 import {
@@ -14,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 
 export default function StrangerProfile({ currentUser, stranger, strangerPosts, comments }) {
+  const { data: session } = useSession();
+  
   //function to return filtered comments to pass as props
   const returnFilteredComments = ( someData ) => {
     const filteredComments = comments.filter( comment => comment.post === someData._id );
@@ -21,19 +24,22 @@ export default function StrangerProfile({ currentUser, stranger, strangerPosts, 
     return filteredComments;
   };
 
-  return(
-    <Flex
-      direction={ 'column' }
-      color={ 'red.500' }
-    >
-      <StrangerCard strangerData={ stranger } postLength={ strangerPosts } userData={ currentUser } />
-      {
-        strangerPosts.map((post) => {
-          return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
-        })
-      }
-    </Flex>
-  )
+  if( session ) {
+    return(
+      <Flex
+        direction={ 'column' }
+        color={ 'red.500' }
+        padding={{ lg: '0 100px' }}
+      >
+        <StrangerCard strangerData={ stranger } postLength={ strangerPosts } userData={ currentUser } />
+        {
+          strangerPosts.map((post) => {
+            return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />
+          })
+        }
+      </Flex>
+    )
+  }
 };
 
 export async function getServerSideProps( context ) {

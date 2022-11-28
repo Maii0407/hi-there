@@ -8,6 +8,8 @@ import {
   Button
 } from '@chakra-ui/react';
 
+import { AddIcon } from '@chakra-ui/icons';
+
 export const BtnOnFriends = ({ stranger }) => {
   const router = useRouter();
   const { data: session } = useSession();
@@ -46,8 +48,8 @@ export const BtnOnFriends = ({ stranger }) => {
         borderWidth={ '5px' }
         borderStyle={ 'double' }
         borderColor={ 'gray.900' }
-        padding='15px'
-        size='sm'
+        size={{ base: 'sm', lg: 'md' }}
+        _hover
       >
         Friends
       </Button>
@@ -58,8 +60,8 @@ export const BtnOnFriends = ({ stranger }) => {
         borderWidth={ '5px' }
         borderStyle={ 'double' }
         borderColor={ 'gray.900' }
-        padding='15px'
-        size='sm'
+        size={{ base: 'sm', lg: 'md' }}
+        _hover
       >
         Unfriend
       </Button>
@@ -105,8 +107,8 @@ export const BtnOnRequest = ({ stranger }) => {
         borderWidth={ '5px' }
         borderStyle={ 'double' }
         borderColor={ 'gray.900' }
-        padding='15px'
-        size='sm'
+        size={{ base: 'sm', lg: 'md' }}
+        _hover
       >
         Requested
       </Button>
@@ -117,8 +119,8 @@ export const BtnOnRequest = ({ stranger }) => {
         borderWidth={ '5px' }
         borderStyle={ 'double' }
         borderColor={ 'gray.900' }
-        padding='15px'
-        size='sm'
+        size={{ base: 'sm', lg: 'md' }}
+        _hover
       >
         Cancel Request
       </Button>
@@ -188,8 +190,8 @@ export const BtnOnReceived = ({ stranger }) => {
         borderWidth={ '5px' }
         borderStyle={ 'double' }
         borderColor={ 'gray.900' }
-        padding='15px'
-        size='sm'
+        size={{ base: 'sm', lg: 'md' }}
+        _hover
       >
         Accept Request
       </Button>
@@ -200,8 +202,8 @@ export const BtnOnReceived = ({ stranger }) => {
         borderWidth={ '5px' }
         borderStyle={ 'double' }
         borderColor={ 'gray.900' }
-        padding='15px'
-        size='sm'
+        size={{ base: 'sm', lg: 'md' }}
+        _hover
       >
         Reject Request
       </Button>
@@ -238,14 +240,16 @@ export const BtnOnAddFriend = ({ stranger }) => {
   return(
     <Button
       onClick={ () => handleSendReq() }
+      leftIcon={ <AddIcon /> }
       backgroundColor={ 'red.500' }
       color={ 'gray.900' }
       borderWidth={ '5px' }
       borderStyle={ 'double' }
       borderColor={ 'gray.900' }
-      margin='5px 10px'
+      size={{ base: 'sm', lg: 'md' }}
+        _hover
     >
-      Send Friend Request
+      Add Friend
     </Button>
   );
 };

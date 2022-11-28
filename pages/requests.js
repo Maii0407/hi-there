@@ -8,6 +8,7 @@ import { authOptions } from './api/auth/[...nextauth]';
 import { RequestCard } from '../components/RequestCard';
 
 import { 
+  Box,
   Flex,
   Text
  } from "@chakra-ui/react";
@@ -21,6 +22,8 @@ export default function RequestList({ currentUser }) {
     return (
       <Flex
         direction='column'
+        justifyContent={{ lg: 'center' }}
+        padding={{ lg: '0 100px' }}
       >
         <Flex
           borderBottom='5px'
@@ -36,9 +39,11 @@ export default function RequestList({ currentUser }) {
           </Text>
         </Flex>
 
-        <Flex
-          direction='column'
+        <Box
+          display={{ base: 'flex', lg: 'grid' }}
+          flexDirection='column'
           justifyContent='center'
+          gridTemplateColumns={{ lg: 'repeat( 4, 1fr )' }}
         >
           {
             noRequest ? (
@@ -54,7 +59,7 @@ export default function RequestList({ currentUser }) {
               return <RequestCard key={ stranger._id } requestData={ stranger } />
             })
           }
-        </Flex>
+        </Box>
 
       </Flex>
     );

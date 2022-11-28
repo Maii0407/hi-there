@@ -5,7 +5,6 @@ import {
   Button,
   Text,
   Avatar,
-  Heading
 } from '@chakra-ui/react';
 
 export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
