@@ -69,17 +69,20 @@ export const PostForm = ({ setFormOpen }) => {
         direction='column'
         backgroundColor='gray.900'
       >
-        <Box
-        borderBottom='1px'
-        borderColor='red.500'
+        <Flex
+          direction='row'
+          justifyContent={{ lg: 'flex-end' }}
+          borderBottom='1px'
+          borderColor='red.500'
         >
           <IconButton
             icon={ <CloseIcon/> }
             backgroundColor='transparent'
             color='red.500'
             onClick={ () => setFormOpen( false ) }
+            _hover
           />
-        </Box>
+        </Flex>
 
         <Flex
           direction='row'
