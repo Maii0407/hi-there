@@ -10,7 +10,8 @@ import Comment from '../models/commentModel';
 import { PostCard } from '../components/PostCard';
 
 import {
-  Flex
+  Flex,
+  Text
 } from "@chakra-ui/react";
 
 export default function Discover({ posts, comments }) {
@@ -31,6 +32,15 @@ export default function Discover({ posts, comments }) {
         justifyContent={{ lg: 'center' }}
         padding={{ lg: '0 100px' }}
       >
+        <Text
+          color='red.500'
+          borderBottom='5px double'
+          borderColor='red.500'
+          padding='10px'
+          margin='5px 5px 10px'
+        >
+          Discover
+        </Text>
         {
           posts.map(( post ) => {
             return <PostCard key={ post._id } postData={ post } commentArray={ returnFilteredComments( post )} />

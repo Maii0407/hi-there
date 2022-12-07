@@ -10,22 +10,22 @@ import { FriendCard } from '../components/FriendCard';
 
 import { 
   Flex,
-  Text
+  Text,
+  Box
 } from "@chakra-ui/react";
 
-//TODO finish this
 export default function FriendList({ currentUser }) {
   const { data: session } = useSession();
   const router = useRouter();
 
   const noFriends = currentUser.friends.length === 0;
 
-  console.log({ currentUser });
-
   if( session ) {
     return (
       <Flex
         direction='column'
+        justifyContent={{ lg: 'center' }}
+        padding={{ lg: '0 100px' }}
       >
         <Flex
           borderBottom='5px'
@@ -41,9 +41,11 @@ export default function FriendList({ currentUser }) {
           </Text>
         </Flex>
 
-        <Flex
-          direction='column'
+        <Box
+          display={{ base: 'flex', lg: 'grid' }}
+          flexDirection='column'
           justifyContent='center'
+          gridTemplateColumns={{ lg: 'repeat( 4, 1fr )' }}
         >
           {
             noFriends ? (
@@ -59,7 +61,7 @@ export default function FriendList({ currentUser }) {
               return <FriendCard key={ friend._id } friendData={ friend } />
             })
           }
-        </Flex>
+        </Box>
 
       </Flex>
     );

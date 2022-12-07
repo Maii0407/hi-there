@@ -10,7 +10,7 @@ import {
   Button,
   Avatar,
   IconButton,
-  Box
+  Box,
  } from '@chakra-ui/react';
 
  import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
@@ -47,7 +47,7 @@ export const FriendCard = ({ friendData }) => {
   return(
     <Flex
       direction='row'
-      justifyContent='space-between'
+      justifyContent={{ base: 'space-between', lg: 'center' }}
       alignItems='center'
       borderWidth='1px'
       borderColor='red.500'
@@ -57,13 +57,15 @@ export const FriendCard = ({ friendData }) => {
     >
 
       <Flex
-        direction='row'
+        direction={{ base: 'row', lg: 'column' }}
+        justifyContent={{ lg: 'center' }}
         alignItems='center'
       >
         <Avatar
           src={ friendData.image }
           alt={ friendData.name }
-          marginRight='10px'
+          size={{ base: 'lg', lg: '2xl' }}
+          marginRight={{ base: '10px' }}
         />
 
         <NextLink
@@ -74,14 +76,26 @@ export const FriendCard = ({ friendData }) => {
             color={ 'red.500' }
             fontSize='15px'
             textAlign='center'
+            padding={{ lg: '10px 0 5px' }}
           >
             { friendData.name }
           </Link>
         </NextLink>
+
+        <Button
+          onClick={ () => handleUnfriend() }
+          display={{ base: 'none', lg: 'block' }}
+          color='gray.900'
+          backgroundColor='red.500'
+          _hover
+        >
+          Unfriend
+        </Button>
       </Flex>
 
       <IconButton
         onClick={ () => setOpenOptions( true ) }
+        display={{ lg: 'none' }}
         color='red.500'
         variant='ghost'
         aria-label='Options Btn'
@@ -91,6 +105,7 @@ export const FriendCard = ({ friendData }) => {
       {
         openOptions ? (
           <Box
+            display={{ lg: 'none' }}
             position='fixed'
             height='100%'
             width='100%'
