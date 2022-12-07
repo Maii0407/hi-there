@@ -4,8 +4,6 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-import { CommentOverlay } from './comment/CommentOverlay';
-
 import {
   Avatar,
   Flex,
@@ -19,7 +17,6 @@ export const PostCard = ({ postData, commentArray }) => {
   const router = useRouter();
   const { data: session } = useSession();
   
-  const [ commentOpen, setCommentOpen ] = useState( false );
   const [ likeState, setLikeState ] = useState( postData.likes );
   const [ contentState, setContentState ] = useState('');
 
@@ -84,10 +81,10 @@ export const PostCard = ({ postData, commentArray }) => {
 
     if( !found ) {
       return <Button
-        size={ 'sm' }
-        backgroundColor={ 'transparent' }
-        borderWidth={ '1px' }
-        borderColor={ 'red.500' }
+        size='sm'
+        backgroundColor='transparent'
+        borderWidth='1px'
+        borderColor='red.500'
         onClick={ () => handleLike() }
         _hover
       >
@@ -96,10 +93,10 @@ export const PostCard = ({ postData, commentArray }) => {
     }
     else {
       return <Button
-        size={ 'sm' }
-        backgroundColor={ 'transparent' }
-        borderWidth={ '1px' }
-        borderColor={ 'red.500' }
+        size='sm'
+        backgroundColor='transparent'
+        borderWidth='1px'
+        borderColor='red.500'
         onClick={ () => handleUnlike() }
         _hover
       >
@@ -140,14 +137,14 @@ export const PostCard = ({ postData, commentArray }) => {
 
   return (
     <Flex
-      direction={ 'column' }
-      backgroundColor={ 'gray.900' }
-      borderWidth={ '1px' }
-      borderColor={ 'red.500' }
+      direction='column'
+      backgroundColor='gray.900'
+      borderWidth='1px'
+      borderColor='red.500'
     >
       <Flex
-        direction={ 'row' }
-        padding={ '10px' }
+        direction='row'
+        padding='10px'
       >
         <Avatar
           src={ postData.user.image }
@@ -158,8 +155,8 @@ export const PostCard = ({ postData, commentArray }) => {
         >
           <Button
             as='a'
-            size={ 'sm' }
-            backgroundColor={ 'transparent' }
+            size='sm'
+            backgroundColor='transparent'
             _hover
           >
             { postData.user.name }
@@ -168,10 +165,10 @@ export const PostCard = ({ postData, commentArray }) => {
       </Flex>
 
       <Flex
-        direction={ 'column' }
+        direction='column'
       >
         <Text
-          padding={ '10px' }
+          padding='10px'
         >
           { postData.content }
         </Text>
@@ -186,9 +183,9 @@ export const PostCard = ({ postData, commentArray }) => {
       </Flex>
 
       <Flex
-        direction={ 'row' }
+        direction='row'
         justifyContent={{ base: 'space-between', lg: 'flex-start' }}
-        padding={ '10px 10px' }
+        padding='10px 10px'
       >
         <Flex
           direction='row'
@@ -208,16 +205,22 @@ export const PostCard = ({ postData, commentArray }) => {
           direction='row'
           alignItems='center'
         >
-          <Button
-            size={ 'sm' }
-            backgroundColor={ 'transparent' }
-            borderWidth={ '1px' }
-            borderColor={ 'red.500' }
-            onClick={ () => setCommentOpen( true ) }
-            _hover
+
+          <NextLink
+            href={ `/post/${ postData._id }` }
+            passHref
           >
-            Comment
-          </Button>
+            <Button
+              as='a'
+              size='sm'
+              backgroundColor='transparent'
+              borderWidth='1px'
+              borderColor='red.500'
+              _hover
+            >
+              Comment
+            </Button>
+          </NextLink>
           <Text
             color='red.500'
             padding='5px'
@@ -253,15 +256,6 @@ export const PostCard = ({ postData, commentArray }) => {
         </Button>
       </Flex>
 
-      { commentOpen ? ( 
-        <CommentOverlay
-          setIsOpen={ setCommentOpen }
-          postData={ postData }
-          commentArray={ commentArray }
-          likeState={ likeState }
-          setLikeState={ setLikeState }
-        /> 
-      ) : null }
     </Flex>
   );
 };

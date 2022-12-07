@@ -7,7 +7,7 @@ import User from '../models/userModel';
 import Comment from '../models/commentModel';
 import { authOptions } from './api/auth/[...nextauth]';
 
-import { PostCard } from '../components/PostCard';
+import { PostCard } from '../components/post/PostCard';
 import {
   Flex,
   Text

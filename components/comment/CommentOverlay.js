@@ -72,6 +72,7 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, s
         backgroundColor={ 'transparent' }
         borderWidth={ '1px' }
         borderColor={ 'red.500' }
+        _hover
         onClick={ () => handlePostLike() }
       >
         Like
@@ -83,6 +84,7 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, s
         backgroundColor={ 'transparent' }
         borderWidth={ '1px' }
         borderColor={ 'red.500' }
+        _hover
         onClick={ () => handlePostUnlike() }
       >
         Unlike
@@ -92,31 +94,37 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, s
 
   return(
     <Box
-      position={ 'fixed' }
-      height={ '100%' }
-      width={ '100%' }
-      backgroundColor={ 'gray.800' }
-      zIndex={ '6' }
-      top={ '0' }
-      right={ '0' }
+      position='fixed'
+      height='100%'
+      width='100%'
+      backgroundColor='gray.800'
+      zIndex='6'
+      top='0'
+      right='0'
+      display='flex'
+      flexDirection='column'
+      justifyContent={{ lg: 'center' }}
     >
 
       <Flex
         direction='row'
-        justifyContent='space-around'
+        justifyContent={{ base: 'space-around', lg: 'flex-end' }}
         alignItems='center'
-        borderBottom={ '1px' }
-        borderColor={ 'red.500' }
+        borderBottom='1px'
+        borderColor='red.500'
+        padding={{ lg: '5px 10px' }}
       >
         <IconButton
           icon={ <CloseIcon/> }
-          backgroundColor={ 'transparent' }
-          color={ 'red.500' }
+          backgroundColor='transparent'
+          color='red.500'
           onClick={ () => setIsOpen( false ) }
+          _hover
         />
         <Button
           onClick={ () => console.log( 'num of likes' ) }
           backgroundColor='transparent'
+          _hover
         >
           { likeState.length } Likes
         </Button>
@@ -126,7 +134,9 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, s
       <Flex
         direction='column'
         overflowY='scroll'
-        maxHeight='90vh'
+        maxHeight={{ base: '90vh' }}
+        padding={{ lg: '0 200px' }}
+        justifyContent={{ lg: 'center' }}
       >
         {
           commentArray.map(( comment ) => {

@@ -7,7 +7,7 @@ import Post from '../models/postModel';
 import User from '../models/userModel';
 import Comment from '../models/commentModel';
 
-import { PostCard } from '../components/PostCard';
+import { PostCard } from '../components/post/PostCard';
 
 import {
   Flex,
