@@ -2,22 +2,26 @@ import React, { useState } from 'react';
 import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
-import { CommentOverlay } from './CommentOverlay';
+import { CommentOverlay } from './comment/CommentOverlay';
 
 import {
   Avatar,
   Flex,
   Text,
   Image,
-  Button
+  Button,
+  Input
 } from '@chakra-ui/react';
 
 export const PostCard = ({ postData, commentArray }) => {
+  const router = useRouter();
   const { data: session } = useSession();
   
   const [ commentOpen, setCommentOpen ] = useState( false );
   const [ likeState, setLikeState ] = useState( postData.likes );
+  const [ contentState, setContentState ] = useState('');
 
   // this function returns a different link if pressing current users name in posts???
   const returnLink = () => {
@@ -101,6 +105,36 @@ export const PostCard = ({ postData, commentArray }) => {
       >
         Unlike
       </Button>
+    }
+  };
+
+  //this function handles if form is submitted
+  const handleCommentSend = async () => {
+    if( contentState === '' || !contentState ) {
+      console.log( 'comment content empty' );
+    }
+    else {
+      try {
+        const response = await axios({
+          method: 'post',
+          url: '/api/comment/create',
+          withCredentials: true,
+          data: {
+            content: contentState,
+            user: session.user.id,
+            post: postData._id
+          },
+        });
+    
+        return response.data;
+      }
+      catch( error ) {
+        console.log( error );
+      }
+      finally {
+        setContentState('');
+        router.replace( router.asPath );
+      }
     }
   };
 
@@ -193,6 +227,32 @@ export const PostCard = ({ postData, commentArray }) => {
         </Flex>
         
       </Flex>
+
+      <Flex
+        direction='row'
+        padding='5px'
+      >
+        <Input
+          type='text'
+          placeholder='Write a comment..'
+          variant='filled'
+          backgroundColor='gray.900'
+          value={ contentState }
+          border='1px solid'
+          borderColor='red.500'
+          onChange={ (e) => setContentState( e.target.value ) }
+        />
+        <Button
+          onClick={ () => handleCommentSend() }
+          backgroundColor='transparent'
+          borderWidth='1px'
+          borderColor='red.500'
+          _hover
+        >
+          Send
+        </Button>
+      </Flex>
+
       { commentOpen ? ( 
         <CommentOverlay
           setIsOpen={ setCommentOpen }

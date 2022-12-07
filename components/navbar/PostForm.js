@@ -25,28 +25,33 @@ export const PostForm = ({ setFormOpen }) => {
 
   //this function handles if form is submitted
   const onPostCreate = async () => {
-    try {
-      const response = await axios({
-        method: 'post',
-        url: '/api/post/create',
-        withCredentials: true,
-        data: {
-          content: postContent,
-          image: imageContent,
-          user: session.user.id
-        },
-      });
-  
-      return response.data;
+    if( postContent === '' && imageContent === '' ) {
+      console.log( 'post content emtpy' )
     }
-    catch( error ) {
-      console.log( error );
-    }
-    finally {
-      setPostContent('');
-      setImageContent('');
-      setFormOpen( false );
-      router.push(router.asPath);
+    else {
+      try {
+        const response = await axios({
+          method: 'post',
+          url: '/api/post/create',
+          withCredentials: true,
+          data: {
+            content: postContent,
+            image: imageContent,
+            user: session.user.id
+          },
+        });
+    
+        return response.data;
+      }
+      catch( error ) {
+        console.log( error );
+      }
+      finally {
+        setPostContent('');
+        setImageContent('');
+        setFormOpen( false );
+        router.push(router.asPath);
+      }
     }
   };
 

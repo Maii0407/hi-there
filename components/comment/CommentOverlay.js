@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -11,49 +11,11 @@ import {
   Button,
   Flex,
   IconButton,
-  Input
 } from '@chakra-ui/react';
 
 export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, setLikeState }) => {
   const router = useRouter();
   const { data: session } = useSession();
-
-  const [ commentList, setCommentList ] = useState( commentArray );
-  const [ contentState, setContentState ] = useState('');
-
-  //this function handles if form is submitted
-  const handleCommentSend = async () => {
-    try {
-      const response = await axios({
-        method: 'post',
-        url: '/api/comment/create',
-        withCredentials: true,
-        data: {
-          content: contentState,
-          user: session.user.id,
-          post: postData._id
-        },
-      });
-  
-      return response.data;
-    }
-    catch( error ) {
-      console.log( error );
-    }
-    finally {
-      setCommentList( commentList =>  [ {
-        content: contentState,
-        post: postData._id,
-        likes: [],
-        user: {
-          name: session.user.name,
-          image: session.user.image,
-          id: session.user.id
-        }
-      }, ...commentList]);
-      setContentState('');
-    }
-  };
 
   const handlePostLike = async () => {
     try {
@@ -164,40 +126,13 @@ export const CommentOverlay = ({ setIsOpen, postData, commentArray, likeState, s
       <Flex
         direction='column'
         overflowY='scroll'
-        maxHeight='80vh'
+        maxHeight='90vh'
       >
         {
-          commentList.map(( comment ) => {
-            return <CommentCard key={ comment.content } commentData={ comment } />
+          commentArray.map(( comment ) => {
+            return <CommentCard key={ comment._id } commentData={ comment } />
           })
         }
-      </Flex>
-
-      <Flex
-        direction='row'
-        position='fixed'
-        bottom='0'
-        right='0'
-        width='100%'
-        padding='5px 10px'
-        zIndex={ '7' }
-      >
-        <Input
-          type='text'
-          placeholder='Write a comment..'
-          variant='filled'
-          backgroundColor='gray.900'
-          value={ contentState }
-          onChange={ (e) => setContentState( e.target.value ) }
-        />
-        <Button
-          onClick={ () => handleCommentSend() }
-          backgroundColor='transparent'
-          borderWidth='1px'
-          borderColor='red.500'
-        >
-          Send
-        </Button>
       </Flex>
 
     </Box>
