@@ -29,8 +29,8 @@ export default function Profile({ currentUser, userPost, comments }) {
   if ( session ) {
     return(
       <Flex
-        direction={ 'column' }
-        color={ 'red.500' }
+        direction='column'
+        color='red.500'
         padding={{ lg: '0 100px' }}
       >
         <ProfileCard userData={ currentUser } postLength={ userPost } setIsOpen={ setFormOpen } />

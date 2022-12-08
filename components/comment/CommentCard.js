@@ -124,6 +124,7 @@ export const CommentCard = ({ commentData }) => {
       padding='10px 15px'
       margin='5px 10px'
       backgroundColor='gray.900'
+      width={{ lg: '50%' }}
     >
 
       <Flex
@@ -148,14 +149,6 @@ export const CommentCard = ({ commentData }) => {
           </Button>
         </NextLink>
 
-        {/* <Button
-          onClick={ () => console.log( commentData.user.name ) }//TODO this directs to profile page
-          marginLeft='5px'
-          size='sm'
-          backgroundColor='transparent'
-        >
-          { commentData.user.name }
-        </Button> */}
       </Flex>
 
       <Flex

@@ -21,17 +21,20 @@ export default function PostPage({ currentPost, commentList }) {
   if( session ) {
     return(
       <Flex
+        width={{ lg: '75vw' }}
         direction='column'
-        backgroundColor='gray.900'
         color='red.500'
+        justifyContent={{ lg: 'center' }}
+        padding={{ lg: '0 100px' }}
       >
-        <DetailedPost postData={ currentPost } commentArray={ commentList } />
+        <DetailedPost postData={ currentPost } />
 
         <Text
-          padding='10px'
-          backgroundColor='gray.800'
+          color='red.500'
           borderBottom='5px double'
           borderColor='red.500'
+          padding='10px'
+          margin='5px 5px 10px'
         >
           { commentList.length } Comments
         </Text>

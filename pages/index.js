@@ -35,8 +35,8 @@ export default function Home({ currentUser, posts, comments }) {
 
     return(
       <Flex
-        direction={ 'column' }
-        color={ 'red.500' }
+        direction='column'
+        color='red.500'
         justifyContent={{ lg: 'center' }}
         padding={{ lg: '0 100px' }}
       >

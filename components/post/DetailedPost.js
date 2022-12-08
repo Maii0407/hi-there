@@ -13,7 +13,7 @@ import {
   Input
  } from '@chakra-ui/react';
 
-export const DetailedPost = ({ postData, commentArray }) => {
+export const DetailedPost = ({ postData }) => {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -142,6 +142,7 @@ export const DetailedPost = ({ postData, commentArray }) => {
       borderWidth='1px'
       borderColor='red.500'
       marginTop='20px'
+      borderRadius={{ lg: '10px' }}
     >
       <Flex
         direction='row'
