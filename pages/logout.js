@@ -20,7 +20,7 @@ export default function Logout() {
     else {
       router.replace( '/login' );
     }
-  },[]);
+  },[ session, router ]);
 
   if( session ) {
     return(
