@@ -43,7 +43,7 @@ export const authOptions = {
         // that is false/null if the credentials are invalid.
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
 
-        const res = await fetch('http://localhost:3000/api/auth/testlogin', {
+        const res = await fetch('https://hi-there-production.up.railway.app//api/auth/testlogin', {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }

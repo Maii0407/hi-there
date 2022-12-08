@@ -49,7 +49,7 @@ export default function Login({ providers }) {
         width={{ lg: '50%' }}
       >
         <Button
-          onClick={ () => signIn( providersArray[0].id, { callbackUrl: 'http://localhost:3000' }) }
+          onClick={ () => signIn( providersArray[0].id, { callbackUrl: 'https://hi-there-production.up.railway.app/' }) }
           color='white'
           bgColor='blue.700'
           borderWidth='5px'
@@ -61,7 +61,7 @@ export default function Login({ providers }) {
           { providersArray[0].name } Login
         </Button>
         <Button
-          onClick={ () => signIn( providersArray[1].id, { callbackUrl: 'http://localhost:3000' }) }
+          onClick={ () => signIn( providersArray[1].id, { callbackUrl: 'https://hi-there-production.up.railway.app/' }) }
           color='gray.900'
           bgColor='red.600'
           borderWidth='5px'
