@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 
 import {
   Flex,
@@ -10,8 +12,20 @@ import {
 } from '@chakra-ui/react';
 
 export const CommentCard = ({ commentData }) => {
+  const router = useRouter();
   const { data: session } = useSession();
+
   const [ likeState, setLikeState ] = useState( commentData.likes );
+
+  // this function returns a different link if pressing current users name in posts???
+  const returnLink = () => {
+    if( session.user.id=== commentData.user._id ) {
+      return '/profile';
+    }
+    else {
+      return `/profile/${ commentData.user._id }`;
+    }
+  };
 
   //function that likes comment
   const handleLike = async () => {
@@ -79,22 +93,24 @@ export const CommentCard = ({ commentData }) => {
 
     if( !found ) {
       return <Button
-        size={ 'sm' }
-        backgroundColor={ 'transparent' }
-        borderWidth={ '1px' }
-        borderColor={ 'red.500' }
+        size='sm'
+        backgroundColor='transparent'
+        borderWidth='1px'
+        borderColor='red.500'
         onClick={ () => handleLike() }
+        _hover
       >
         Like
       </Button>
     }
     else {
       return <Button
-        size={ 'sm' }
-        backgroundColor={ 'transparent' }
-        borderWidth={ '1px' }
-        borderColor={ 'red.500' }
+        size='sm'
+        backgroundColor='transparent'
+        borderWidth='1px'
+        borderColor='red.500'
         onClick={ () => handleUnlike() }
+        _hover
       >
         Unlike
       </Button>
@@ -118,14 +134,28 @@ export const CommentCard = ({ commentData }) => {
           alt={ commentData.user.name }
           size='md'
         />
-        <Button
+        <NextLink
+          href={ returnLink() }
+          passHref
+        >
+          <Button
+            as='a'
+            size='sm'
+            backgroundColor='transparent'
+            _hover
+          >
+            { commentData.user.name }
+          </Button>
+        </NextLink>
+
+        {/* <Button
           onClick={ () => console.log( commentData.user.name ) }//TODO this directs to profile page
           marginLeft='5px'
           size='sm'
           backgroundColor='transparent'
         >
           { commentData.user.name }
-        </Button>
+        </Button> */}
       </Flex>
 
       <Flex

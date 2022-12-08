@@ -4,7 +4,6 @@ import NextLink from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-
 import { 
   Flex,
   Avatar,

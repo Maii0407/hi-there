@@ -6,14 +6,15 @@ import User from '../../models/userModel';
 import Post from '../../models/postModel';
 import Comment from '../../models/commentModel';
 import { authOptions } from '../api/auth/[...nextauth]';
+import { CommentOverlay } from '../../components/comment/CommentOverlay';
 
 import { DetailedPost } from '../../components/post/DetailedPost';
 
 import {
   Flex,
+  Text
 } from "@chakra-ui/react";
 
-//TODO finish this
 export default function PostPage({ currentPost, commentList }) {
   const { data: session } = useSession();
 
@@ -25,6 +26,17 @@ export default function PostPage({ currentPost, commentList }) {
         color='red.500'
       >
         <DetailedPost postData={ currentPost } commentArray={ commentList } />
+
+        <Text
+          padding='10px'
+          backgroundColor='gray.800'
+          borderBottom='5px double'
+          borderColor='red.500'
+        >
+          { commentList.length } Comments
+        </Text>
+
+        <CommentOverlay postData={ currentPost } commentArray={ commentList } />
       </Flex>
     )
   }
