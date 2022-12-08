@@ -7,14 +7,14 @@ import Post from '../../models/postModel';
 import Comment from '../../models/commentModel';
 import { authOptions } from '../api/auth/[...nextauth]';
 
-import { PostCard } from '../../components/post/PostCard';
+import { DetailedPost } from '../../components/post/DetailedPost';
 
 import {
   Flex,
 } from "@chakra-ui/react";
 
 //TODO finish this
-export default function DetailedPost({ currentPost, commentList }) {
+export default function PostPage({ currentPost, commentList }) {
   const { data: session } = useSession();
 
   if( session ) {
@@ -24,7 +24,7 @@ export default function DetailedPost({ currentPost, commentList }) {
         backgroundColor='gray.900'
         color='red.500'
       >
-        <PostCard postData={ currentPost } commentArray={ commentList } />
+        <DetailedPost postData={ currentPost } commentArray={ commentList } />
       </Flex>
     )
   }

@@ -9,7 +9,7 @@ import Comment from '../models/commentModel';
 import { authOptions } from './api/auth/[...nextauth]';
 
 import { ProfileCard } from '../components/profilePage/ProfileCard';
-import { PostCard } from '../components/PostCard';
+import { PostCard } from '../components/post/PostCard';
 import { UpdateProfileForm } from '../components/profilePage/UpdateProfileForm';
 
 import { Flex } from "@chakra-ui/react";

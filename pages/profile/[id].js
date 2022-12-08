@@ -8,7 +8,7 @@ import Comment from '../../models/commentModel';
 import { authOptions } from '../api/auth/[...nextauth]';
 
 import { StrangerCard } from '../../components/strangerProfilePage/StrangerCard';
-import { PostCard } from '../../components/PostCard';
+import { PostCard } from '../../components/post/PostCard';
 
 import {
   Flex,
