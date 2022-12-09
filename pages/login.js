@@ -4,8 +4,11 @@ import {
   Flex,
   Button,
   Heading,
-  Text
-} from "@chakra-ui/react"
+  Text,
+  Icon
+} from "@chakra-ui/react";
+
+import { FcGoogle } from 'react-icons/fc'
 
 export default function Login({ providers }) {  
   const providersArray = Object.values( providers );
@@ -50,12 +53,13 @@ export default function Login({ providers }) {
       >
         <Button
           onClick={ () => signIn( providersArray[0].id, { callbackUrl: 'https://hi-there-production.up.railway.app/' }) }
-          color='rgb(255, 255, 255)'
-          bgColor='rgb(44, 82, 130)'
+          color='rgb(44, 82, 130)'
+          bgColor='gray.300'
           borderWidth='5px'
           borderColor='rgb(23, 25, 35)'
           borderStyle='double'
           margin='5px'
+          leftIcon={ <Icon as={ FcGoogle } /> }
           _hover={{ filter: 'auto', brightness: '70%' }}
         >
           { providersArray[0].name } Login

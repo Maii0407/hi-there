@@ -2,21 +2,20 @@ import NextAuth from 'next-auth';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import clientPromise from '../../../utils/mongodb';
 
-import FacebookProvider from 'next-auth/providers/facebook';
+import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from "next-auth/providers/credentials"
 
-//TODO make the random login functionality
 export const authOptions = {
   providers: [
-    FacebookProvider({
-      clientId: process.env.PASS_FACEBOOK_ID,
-      clientSecret: process.env.PASS_FACEBOOK_SECRET,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       profile( profile ) {
         return {
-          id: profile.id,
+          id: profile.sub,
           name: profile.name,
           email: profile.email,
-          image: profile.picture.data.url,
+          image: profile.picture,
           friends: [],
           requestsReceived: [],
           requestsSent: [],

@@ -44,6 +44,7 @@ function MyApp({
           <Head>
             <title>hiTHERE</title>
             <meta name='description' content='hello world' />
+            <meta name="referrer" content="no-referrer" />
           </Head>
           <Component {...pageProps} />
         </Layout>
