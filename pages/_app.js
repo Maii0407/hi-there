@@ -1,4 +1,5 @@
 import { SessionProvider } from 'next-auth/react';
+import Head from 'next/head';
 
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
@@ -40,6 +41,10 @@ function MyApp({
     <SessionProvider session={ session }>
       <ChakraProvider theme={ theme }>
         <Layout>
+          <Head>
+            <title>hiTHERE</title>
+            <meta name='description' content='hello world' />
+          </Head>
           <Component {...pageProps} />
         </Layout>
       </ChakraProvider>
