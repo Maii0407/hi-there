@@ -84,7 +84,7 @@ export const DetailedPost = ({ postData }) => {
         size='sm'
         backgroundColor='transparent'
         borderWidth='1px'
-        borderColor='#E53E3E'
+        borderColor='rgb(229, 62, 62)'
         onClick={ () => handleLike() }
         _hover
       >
@@ -96,7 +96,7 @@ export const DetailedPost = ({ postData }) => {
         size='sm'
         backgroundColor='transparent'
         borderWidth='1px'
-        borderColor='#E53E3E'
+        borderColor='rgb(229, 62, 62)'
         onClick={ () => handleUnlike() }
         _hover
       >
@@ -138,9 +138,9 @@ export const DetailedPost = ({ postData }) => {
   return (
     <Flex
       direction='column'
-      backgroundColor='#171923'
+      backgroundColor='rgb(23, 25, 35)'
       borderWidth='1px'
-      borderColor='#E53E3E'
+      borderColor='rgb(229, 62, 62)'
       marginTop='20px'
       borderRadius={{ lg: '10px' }}
     >
@@ -196,7 +196,7 @@ export const DetailedPost = ({ postData }) => {
         >
           { returnLikeBtn() }
           <Text
-            color='#E53E3E'
+            color='rgb(229, 62, 62)'
             padding='5px'
           >
             { likeState.length }
@@ -213,17 +213,17 @@ export const DetailedPost = ({ postData }) => {
           type='text'
           placeholder='Write a comment..'
           variant='filled'
-          backgroundColor='#171923'
+          backgroundColor='rgb(23, 25, 35)'
           value={ contentState }
           border='1px solid'
-          borderColor='#E53E3E'
+          borderColor='rgb(229, 62, 62)'
           onChange={ (e) => setContentState( e.target.value ) }
         />
         <Button
           onClick={ () => handleCommentSend() }
           backgroundColor='transparent'
           borderWidth='1px'
-          borderColor='#E53E3E'
+          borderColor='rgb(229, 62, 62)'
           _hover
         >
           Send

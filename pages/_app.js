@@ -14,7 +14,7 @@ const theme = extendTheme({
   styles: {
     global: {
       'html, body': {
-        backgroundColor: '#1A202C'
+        backgroundColor: 'rgb(26, 32, 44)'
       },
       button: {
         _hover: {

@@ -50,7 +50,7 @@ export const FriendCard = ({ friendData }) => {
       justifyContent={{ base: 'space-between', lg: 'center' }}
       alignItems='center'
       borderWidth='1px'
-      borderColor='#E53E3E'
+      borderColor='rgb(229, 62, 62)'
       borderRadius='5px'
       padding='5px 10px'
       margin='5px'
@@ -73,7 +73,7 @@ export const FriendCard = ({ friendData }) => {
           passHref
         >
           <Link
-            color={ '#E53E3E' }
+            color={ 'rgb(229, 62, 62)' }
             fontSize='15px'
             textAlign='center'
             padding={{ lg: '10px 0 5px' }}
@@ -85,8 +85,8 @@ export const FriendCard = ({ friendData }) => {
         <Button
           onClick={ () => handleUnfriend() }
           display={{ base: 'none', lg: 'block' }}
-          color='#171923'
-          backgroundColor='#E53E3E'
+          color='rgb(23, 25, 35)'
+          backgroundColor='rgb(229, 62, 62)'
           _hover
         >
           Unfriend
@@ -96,7 +96,7 @@ export const FriendCard = ({ friendData }) => {
       <IconButton
         onClick={ () => setOpenOptions( true ) }
         display={{ lg: 'none' }}
-        color='#E53E3E'
+        color='rgb(229, 62, 62)'
         variant='ghost'
         aria-label='Options Btn'
         icon={ <HamburgerIcon /> }
@@ -138,7 +138,7 @@ export const FriendCard = ({ friendData }) => {
                   passHref
                 >
                   <Link
-                    color={ '#E53E3E' }
+                    color={ 'rgb(229, 62, 62)' }
                     fontSize='15px'
                     textAlign='center'
                   >
@@ -147,7 +147,7 @@ export const FriendCard = ({ friendData }) => {
                 </NextLink>
                 <IconButton
                   onClick={ () => setOpenOptions( false ) }
-                  color='#E53E3E'
+                  color='rgb(229, 62, 62)'
                   variant='ghost'
                   aria-label='Close Btn'
                   icon={ <CloseIcon /> }
@@ -156,8 +156,8 @@ export const FriendCard = ({ friendData }) => {
 
               <Button
                 onClick={ () => handleUnfriend() }
-                backgroundColor='#E53E3E'
-                color='#171923'
+                backgroundColor='rgb(229, 62, 62)'
+                color='rgb(23, 25, 35)'
                 margin='10px'
               >
                 Unfriend

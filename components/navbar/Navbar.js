@@ -21,9 +21,9 @@ export const Navbar = () => {
         height={{ lg: '100%' }}
         padding='0 10px'
         borderBottom={{ base: '5px', lg: 'none' }}
-        borderColor='#E53E3E'
+        borderColor='rgb(229, 62, 62)'
         borderStyle='double'
-        backgroundColor='#171923'
+        backgroundColor='rgb(23, 25, 35)'
         position={{ base: 'sticky', lg: 'fixed' }}
         top='0'
         left={{ lg: '0' }}

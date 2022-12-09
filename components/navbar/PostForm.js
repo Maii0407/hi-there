@@ -72,18 +72,18 @@ export const PostForm = ({ setFormOpen }) => {
         width={{ base: '100%', lg: '70%' }}
         borderRadius={{ lg: '10px' }}
         direction='column'
-        backgroundColor='#171923'
+        backgroundColor='rgb(23, 25, 35)'
       >
         <Flex
           direction='row'
           justifyContent={{ lg: 'flex-end' }}
           borderBottom='1px'
-          borderColor='#E53E3E'
+          borderColor='rgb(229, 62, 62)'
         >
           <IconButton
             icon={ <CloseIcon/> }
             backgroundColor='transparent'
-            color='#E53E3E'
+            color='rgb(229, 62, 62)'
             onClick={ () => setFormOpen( false ) }
             _hover
           />
@@ -100,7 +100,7 @@ export const PostForm = ({ setFormOpen }) => {
           />
           <Button
             backgroundColor='transparent'
-            color='#E53E3E'
+            color='rgb(229, 62, 62)'
             _hover
           >
             { session.user.name }
@@ -119,9 +119,9 @@ export const PostForm = ({ setFormOpen }) => {
             type='url'
             placeholder='Image URL...'
             variant='filled'
-            color='#E53E3E'
+            color='rgb(229, 62, 62)'
             backgroundColor='transparent'
-            borderColor='#E53E3E'
+            borderColor='rgb(229, 62, 62)'
             borderRadius='0'
             marginBottom='10px'
           />
@@ -129,14 +129,14 @@ export const PostForm = ({ setFormOpen }) => {
             value={ postContent }
             onChange={ ( e ) => setPostContent( e.target.value ) }
             placeholder={ `What's on your mind?` }
-            color='#E53E3E'
+            color='rgb(229, 62, 62)'
             resize='vertical'
-            borderColor='#E53E3E'
+            borderColor='rgb(229, 62, 62)'
             borderRadius='0'
           />
           <Button
-            color='#171923'
-            backgroundColor='#E53E3E'
+            color='rgb(23, 25, 35)'
+            backgroundColor='rgb(229, 62, 62)'
             size='md'
             padding='0 30px'
             margin='10px'

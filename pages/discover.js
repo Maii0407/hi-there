@@ -28,14 +28,14 @@ export default function Discover({ posts, comments }) {
     return(
       <Flex
         direction='column'
-        color='#E53E3E'
+        color='rgb(229, 62, 62)'
         justifyContent={{ lg: 'center' }}
         padding={{ lg: '0 100px' }}
       >
         <Text
-          color='#E53E3E'
+          color='rgb(229, 62, 62)'
           borderBottom='5px double'
-          borderColor='#E53E3E'
+          borderColor='rgb(229, 62, 62)'
           padding='10px'
           margin='5px 5px 10px'
         >

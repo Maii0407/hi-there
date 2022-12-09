@@ -28,7 +28,7 @@ export default function StrangerProfile({ currentUser, stranger, strangerPosts, 
     return(
       <Flex
         direction={ 'column' }
-        color={ '#E53E3E' }
+        color={ 'rgb(229, 62, 62)' }
         padding={{ lg: '0 100px' }}
       >
         <StrangerCard strangerData={ stranger } postLength={ strangerPosts } userData={ currentUser } />

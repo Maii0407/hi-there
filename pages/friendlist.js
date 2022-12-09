@@ -29,13 +29,13 @@ export default function FriendList({ currentUser }) {
       >
         <Flex
           borderBottom='5px'
-          borderColor='#E53E3E'
+          borderColor='rgb(229, 62, 62)'
           borderStyle='double'
           padding='10px'
           margin='0 5px'
         >
           <Text
-            color='#E53E3E'
+            color='rgb(229, 62, 62)'
           >
             Friends List - { currentUser.friends.length }
           </Text>
@@ -50,7 +50,7 @@ export default function FriendList({ currentUser }) {
           {
             noFriends ? (
               <Text
-                color='#E53E3E'
+                color='rgb(229, 62, 62)'
                 width='100%'
                 textAlign='center'
                 marginTop='20px'

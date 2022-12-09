@@ -66,19 +66,19 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
       <Flex
         direction='column'
         width={{ base: '100%', lg: '70%' }}
-        backgroundColor='#171923'
+        backgroundColor='rgb(23, 25, 35)'
         borderRadius={{ lg: '10px' }}
       >
         <Flex
           borderBottom='1px'
-          borderColor='#E53E3E'
+          borderColor='rgb(229, 62, 62)'
           direction='row'
           justifyContent={{ lg: 'flex-end' }}
         >
           <IconButton
             icon={ <CloseIcon/> }
             backgroundColor='transparent'
-            color='#E53E3E'
+            color='rgb(229, 62, 62)'
             onClick={ () => setIsOpen( false ) }
             _hover
           />
@@ -93,7 +93,7 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
             alt={ userData.name }
             size='lg'
             borderWidth='5px'
-            borderColor='#E53E3E'
+            borderColor='rgb(229, 62, 62)'
             borderStyle='double'
           />
         </Flex>
@@ -115,10 +115,10 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
             value={ imageState }
             onChange={ (e) => setImageState( e.target.value ) }
             variant='filled'
-            backgroundColor='#171923'
+            backgroundColor='rgb(23, 25, 35)'
             marginBottom='10px'
             placeholder='Update Name'
-            borderColor='#E53E3E'
+            borderColor='rgb(229, 62, 62)'
             borderRadius='0'
           />
 
@@ -134,10 +134,10 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
             value={ nameState }
             onChange={ (e) => setNameState( e.target.value ) }
             variant='filled'
-            backgroundColor='#171923'
+            backgroundColor='rgb(23, 25, 35)'
             marginBottom='10px'
             placeholder='Update Name'
-            borderColor='#E53E3E'
+            borderColor='rgb(229, 62, 62)'
             borderRadius='0'
           />
 
@@ -153,10 +153,10 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
             value={ genderState }
             onChange={ (e) => setGenderState( e.target.value ) }
             variant='filled'
-            backgroundColor='#171923'
+            backgroundColor='rgb(23, 25, 35)'
             marginBottom='10px'
             placeholder='Update Gender'
-            borderColor='#E53E3E'
+            borderColor='rgb(229, 62, 62)'
             borderRadius='0'
           />
 
@@ -172,18 +172,18 @@ export const UpdateProfileForm = ({ setIsOpen, userData }) => {
             value={ bioState }
             onChange={ (e) => setBioState( e.target.value ) }
             variant='filled'
-            backgroundColor='#171923'
+            backgroundColor='rgb(23, 25, 35)'
             marginBottom='10px'
             placeholder='Update Bio'
-            borderColor='#E53E3E'
+            borderColor='rgb(229, 62, 62)'
             borderRadius='0'
           />
 
           <Button
-            backgroundColor='#E53E3E'
-            color='#171923'
+            backgroundColor='rgb(229, 62, 62)'
+            color='rgb(23, 25, 35)'
             borderWidth='5px'
-            borderColor='#171923'
+            borderColor='rgb(23, 25, 35)'
             borderStyle='double'
             alignSelf={{ lg: 'flex-end' }}
             onClick={ () => handleClick() }

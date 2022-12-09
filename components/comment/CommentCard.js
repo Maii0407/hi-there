@@ -96,7 +96,7 @@ export const CommentCard = ({ commentData }) => {
         size='sm'
         backgroundColor='transparent'
         borderWidth='1px'
-        borderColor='#E53E3E'
+        borderColor='rgb(229, 62, 62)'
         onClick={ () => handleLike() }
         _hover
       >
@@ -108,7 +108,7 @@ export const CommentCard = ({ commentData }) => {
         size='sm'
         backgroundColor='transparent'
         borderWidth='1px'
-        borderColor='#E53E3E'
+        borderColor='rgb(229, 62, 62)'
         onClick={ () => handleUnlike() }
         _hover
       >
@@ -123,7 +123,7 @@ export const CommentCard = ({ commentData }) => {
       borderRadius='10px'
       padding='10px 15px'
       margin='5px 10px'
-      backgroundColor='#171923'
+      backgroundColor='rgb(23, 25, 35)'
       width={{ lg: '50%' }}
     >
 
@@ -169,7 +169,7 @@ export const CommentCard = ({ commentData }) => {
           backgroundColor='transparent'
           size='sm'
           borderWidth='1px'
-          borderColor='#E53E3E'
+          borderColor='rgb(229, 62, 62)'
         >
           { likeState.length } Likes
         </Button>

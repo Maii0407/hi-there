@@ -15,7 +15,7 @@ export const CommentOverlay = ({ commentArray }) => {
     <Box
       height='100%'
       width='100%'
-      backgroundColor='#1A202C'
+      backgroundColor='rgb(26, 32, 44)'
       display='flex'
       flexDirection='column'
     >

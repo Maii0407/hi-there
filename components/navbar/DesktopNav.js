@@ -19,12 +19,12 @@ export const DesktopNav = ({ setFormOpen }) => {
       flexDirection='column'
     >
       <Heading
-        color='#171923'
-        backgroundColor='#E53E3E'
+        color='rgb(23, 25, 35)'
+        backgroundColor='rgb(229, 62, 62)'
         padding='5px'
         marginTop='5px'
         border={ '5px double' }
-        borderColor='#171923'
+        borderColor='rgb(23, 25, 35)'
         borderRadius='5px'
         textAlign='center'
       >
@@ -47,7 +47,7 @@ export const DesktopNav = ({ setFormOpen }) => {
                 key={ link.name }
               >
                 <Link
-                  color='#E53E3E'
+                  color='rgb(229, 62, 62)'
                 >
                   { link.name }
                 </Link>
@@ -57,8 +57,8 @@ export const DesktopNav = ({ setFormOpen }) => {
           <Button
             onClick={ () => setFormOpen( true ) }
             leftIcon={ <AddIcon /> }
-            color='#171923'
-            backgroundColor='#E53E3E'
+            color='rgb(23, 25, 35)'
+            backgroundColor='rgb(229, 62, 62)'
             borderRadius='10px'
             _hover
           >

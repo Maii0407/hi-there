@@ -27,11 +27,11 @@ export default function Logout() {
       <Flex
         width={{ lg: '30vw' }}
         direction='column'
-        color='#E53E3E'
+        color='rgb(229, 62, 62)'
         margin={{ lg: '50px' }}
         padding={{ lg: '20px' }}
         border={{ lg: '5px double' }}
-        borderColor={{ lg: '#E53E3E' }}
+        borderColor={{ lg: 'rgb(229, 62, 62)' }}
         borderRadius={{ lg: '5px' }}
       >
         <Heading
@@ -48,10 +48,10 @@ export default function Logout() {
         >
           <Button
             onClick={ () => signOut({ callbackUrl: '/login' }) }
-            color='#171923'
-            backgroundColor='#E53E3E'
+            color='rgb(23, 25, 35)'
+            backgroundColor='rgb(229, 62, 62)'
             borderWidth='5px'
-            borderColor='#171923'
+            borderColor='rgb(23, 25, 35)'
             borderStyle='double'
             size='lg'
             _hover
@@ -64,10 +64,10 @@ export default function Logout() {
           >
             <Button
               as='a'
-              color='#171923'
-              backgroundColor='#E53E3E'
+              color='rgb(23, 25, 35)'
+              backgroundColor='rgb(229, 62, 62)'
               borderWidth='5px'
-              borderColor='#171923'
+              borderColor='rgb(23, 25, 35)'
               borderStyle='double'
               size='lg'
               _hover
