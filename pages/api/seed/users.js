@@ -11,7 +11,7 @@
 //       let numOfRuns = 0;
 //       const fakeGender = faker.name.sexType();
 
-//       for( let i = 0; i < 10; i++ ) {
+//       for( let i = 0; i < 5; i++ ) {
 //         const newFakeUser = new User({
 //           name: faker.name.fullName({ sex: fakeGender }),
 //           image: faker.image.avatar(),
@@ -27,7 +27,7 @@
 //         numOfRuns++;
 //       }
 
-//       if( numOfRuns === 10 ) {
+//       if( numOfRuns === 5 ) {
 //         return res.status( 200 ).json({
 //           message: 'seeding fake users completed'
 //         });
