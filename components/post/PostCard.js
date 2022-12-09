@@ -84,7 +84,7 @@ export const PostCard = ({ postData, commentArray }) => {
         size='sm'
         backgroundColor='transparent'
         borderWidth='1px'
-        borderColor='red.500'
+        borderColor='#E53E3E'
         onClick={ () => handleLike() }
         _hover
       >
@@ -96,7 +96,7 @@ export const PostCard = ({ postData, commentArray }) => {
         size='sm'
         backgroundColor='transparent'
         borderWidth='1px'
-        borderColor='red.500'
+        borderColor='#E53E3E'
         onClick={ () => handleUnlike() }
         _hover
       >
@@ -138,9 +138,9 @@ export const PostCard = ({ postData, commentArray }) => {
   return (
     <Flex
       direction='column'
-      backgroundColor='gray.900'
+      backgroundColor='#171923'
       borderWidth='1px'
-      borderColor='red.500'
+      borderColor='#E53E3E'
     >
       <Flex
         direction='row'
@@ -194,7 +194,7 @@ export const PostCard = ({ postData, commentArray }) => {
         >
           { returnLikeBtn() }
           <Text
-            color='red.500'
+            color='#E53E3E'
             padding='5px'
           >
             { likeState.length }
@@ -215,14 +215,14 @@ export const PostCard = ({ postData, commentArray }) => {
               size='sm'
               backgroundColor='transparent'
               borderWidth='1px'
-              borderColor='red.500'
+              borderColor='#E53E3E'
               _hover
             >
               Comment
             </Button>
           </NextLink>
           <Text
-            color='red.500'
+            color='#E53E3E'
             padding='5px'
           >
             { commentArray.length }
@@ -239,17 +239,17 @@ export const PostCard = ({ postData, commentArray }) => {
           type='text'
           placeholder='Write a comment..'
           variant='filled'
-          backgroundColor='gray.900'
+          backgroundColor='#171923'
           value={ contentState }
           border='1px solid'
-          borderColor='red.500'
+          borderColor='#E53E3E'
           onChange={ (e) => setContentState( e.target.value ) }
         />
         <Button
           onClick={ () => handleCommentSend() }
           backgroundColor='transparent'
           borderWidth='1px'
-          borderColor='red.500'
+          borderColor='#E53E3E'
           _hover
         >
           Send

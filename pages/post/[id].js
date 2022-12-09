@@ -23,16 +23,16 @@ export default function PostPage({ currentPost, commentList }) {
       <Flex
         width={{ lg: '75vw' }}
         direction='column'
-        color='red.500'
+        color='#E53E3E'
         justifyContent={{ lg: 'center' }}
         padding={{ lg: '0 100px' }}
       >
         <DetailedPost postData={ currentPost } />
 
         <Text
-          color='red.500'
+          color='#E53E3E'
           borderBottom='5px double'
-          borderColor='red.500'
+          borderColor='#E53E3E'
           padding='10px'
           margin='5px 5px 10px'
         >

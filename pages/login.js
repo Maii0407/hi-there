@@ -26,13 +26,13 @@ export default function Login({ providers }) {
         marginBottom={{ base: '20px' }}
       >
         <Heading
-          color='red.500'
+          color='#E53E3E'
           textAlign='center'
         >
           hiTHERE
         </Heading>
         <Text
-          color='red.500'
+          color='#E53E3E'
           textAlign='center'
         >
           Just a facebook clone. Connect with your friends and the world around you through hiTHERE.
@@ -42,7 +42,7 @@ export default function Login({ providers }) {
         direction='column'
         justifyContent='center'
         borderWidth='5px'
-        borderColor='red.500'
+        borderColor='#E53E3E'
         borderStyle='double'
         borderRadius='5px'
         padding='10px 20px'
@@ -51,9 +51,9 @@ export default function Login({ providers }) {
         <Button
           onClick={ () => signIn( providersArray[0].id, { callbackUrl: 'https://hi-there-production.up.railway.app/' }) }
           color='white'
-          bgColor='blue.700'
+          bgColor='#2C5282'
           borderWidth='5px'
-          borderColor='gray.900'
+          borderColor='#171923'
           borderStyle='double'
           margin='5px'
           _hover={{ filter: 'auto', brightness: '70%' }}
@@ -62,10 +62,10 @@ export default function Login({ providers }) {
         </Button>
         <Button
           onClick={ () => signIn( providersArray[1].id, { callbackUrl: 'https://hi-there-production.up.railway.app/' }) }
-          color='gray.900'
-          bgColor='red.600'
+          color='#171923'
+          bgColor='#C53030'
           borderWidth='5px'
-          borderColor='gray.900'
+          borderColor='#171923'
           borderStyle='double'
           margin='5px'
           _hover={{ filter: 'auto', brightness: '70%' }}

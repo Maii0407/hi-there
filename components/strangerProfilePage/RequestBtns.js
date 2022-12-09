@@ -43,11 +43,11 @@ export const BtnOnFriends = ({ stranger }) => {
       margin='5px 10px'
     >
       <Button
-        backgroundColor={ 'red.500' }
-        color={ 'gray.900' }
+        backgroundColor={ '#E53E3E' }
+        color={ '#171923' }
         borderWidth={ '5px' }
         borderStyle={ 'double' }
-        borderColor={ 'gray.900' }
+        borderColor={ '#171923' }
         size={{ base: 'sm', lg: 'md' }}
         _hover
       >
@@ -55,11 +55,11 @@ export const BtnOnFriends = ({ stranger }) => {
       </Button>
       <Button
         onClick={ () => handleUnfriend() }
-        backgroundColor={ 'red.500' }
-        color={ 'gray.900' }
+        backgroundColor={ '#E53E3E' }
+        color={ '#171923' }
         borderWidth={ '5px' }
         borderStyle={ 'double' }
-        borderColor={ 'gray.900' }
+        borderColor={ '#171923' }
         size={{ base: 'sm', lg: 'md' }}
         _hover
       >
@@ -102,11 +102,11 @@ export const BtnOnRequest = ({ stranger }) => {
       margin='5px 10px'
     >
       <Button
-        backgroundColor={ 'red.500' }
-        color={ 'gray.900' }
+        backgroundColor={ '#E53E3E' }
+        color={ '#171923' }
         borderWidth={ '5px' }
         borderStyle={ 'double' }
-        borderColor={ 'gray.900' }
+        borderColor={ '#171923' }
         size={{ base: 'sm', lg: 'md' }}
         _hover
       >
@@ -114,11 +114,11 @@ export const BtnOnRequest = ({ stranger }) => {
       </Button>
       <Button
         onClick={ () => handleCancelReq() }
-        backgroundColor={ 'red.500' }
-        color={ 'gray.900' }
+        backgroundColor={ '#E53E3E' }
+        color={ '#171923' }
         borderWidth={ '5px' }
         borderStyle={ 'double' }
-        borderColor={ 'gray.900' }
+        borderColor={ '#171923' }
         size={{ base: 'sm', lg: 'md' }}
         _hover
       >
@@ -185,11 +185,11 @@ export const BtnOnReceived = ({ stranger }) => {
     >
       <Button
         onClick={ () => handleAcceptReq() }
-        backgroundColor={ 'red.500' }
-        color={ 'gray.900' }
+        backgroundColor={ '#E53E3E' }
+        color={ '#171923' }
         borderWidth={ '5px' }
         borderStyle={ 'double' }
-        borderColor={ 'gray.900' }
+        borderColor={ '#171923' }
         size={{ base: 'sm', lg: 'md' }}
         _hover
       >
@@ -197,11 +197,11 @@ export const BtnOnReceived = ({ stranger }) => {
       </Button>
       <Button
         onClick={ () => handleRejectReq() }
-        backgroundColor={ 'red.500' }
-        color={ 'gray.900' }
+        backgroundColor={ '#E53E3E' }
+        color={ '#171923' }
         borderWidth={ '5px' }
         borderStyle={ 'double' }
-        borderColor={ 'gray.900' }
+        borderColor={ '#171923' }
         size={{ base: 'sm', lg: 'md' }}
         _hover
       >
@@ -241,11 +241,11 @@ export const BtnOnAddFriend = ({ stranger }) => {
     <Button
       onClick={ () => handleSendReq() }
       leftIcon={ <AddIcon /> }
-      backgroundColor={ 'red.500' }
-      color={ 'gray.900' }
+      backgroundColor={ '#E53E3E' }
+      color={ '#171923' }
       borderWidth={ '5px' }
       borderStyle={ 'double' }
-      borderColor={ 'gray.900' }
+      borderColor={ '#171923' }
       size={{ base: 'sm', lg: 'md' }}
         _hover
     >

@@ -13,7 +13,7 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
       direction='column'
       borderRight={{ lg: '1px solid' }}
       borderLeft={{ lg: '1px solid' }}
-      borderColor='red.500'
+      borderColor='#E53E3E'
     >
 
       <Flex
@@ -27,16 +27,16 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
           alt={ userData.name }
           size='xl'
           borderWidth='5px'
-          borderColor='red.500'
+          borderColor='#E53E3E'
           borderStyle='double'
         />
         <Button
           size={{ base: 'sm', lg: 'md' }}
-          backgroundColor='red.500'
-          color='gray.900'
+          backgroundColor='#E53E3E'
+          color='#171923'
           borderWidth='5px'
           borderStyle='double'
-          borderColor='gray.900'
+          borderColor='#171923'
           onClick={ () => setIsOpen( true ) }
           _hover
         >
@@ -68,12 +68,12 @@ export const ProfileCard = ({ userData, postLength, setIsOpen }) => {
       <Flex
         direction='row'
         justifyContent={{ base: 'space-around', lg: 'flex-start' }}
-        backgroundColor={{ base: 'gray.900', lg: 'transparent' }}
+        backgroundColor={{ base: '#171923', lg: 'transparent' }}
         padding='10px'
         size='sm'
         marginTop='10px'
         borderWidth={{ base: '1px 0 1px 0', lg: '0' }}
-        borderColor='red.500'
+        borderColor='#E53E3E'
       >
         <Button
           size='sm'

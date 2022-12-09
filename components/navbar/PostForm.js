@@ -72,18 +72,18 @@ export const PostForm = ({ setFormOpen }) => {
         width={{ base: '100%', lg: '70%' }}
         borderRadius={{ lg: '10px' }}
         direction='column'
-        backgroundColor='gray.900'
+        backgroundColor='#171923'
       >
         <Flex
           direction='row'
           justifyContent={{ lg: 'flex-end' }}
           borderBottom='1px'
-          borderColor='red.500'
+          borderColor='#E53E3E'
         >
           <IconButton
             icon={ <CloseIcon/> }
             backgroundColor='transparent'
-            color='red.500'
+            color='#E53E3E'
             onClick={ () => setFormOpen( false ) }
             _hover
           />
@@ -100,7 +100,7 @@ export const PostForm = ({ setFormOpen }) => {
           />
           <Button
             backgroundColor='transparent'
-            color='red.500'
+            color='#E53E3E'
             _hover
           >
             { session.user.name }
@@ -119,9 +119,9 @@ export const PostForm = ({ setFormOpen }) => {
             type='url'
             placeholder='Image URL...'
             variant='filled'
-            color='red.500'
+            color='#E53E3E'
             backgroundColor='transparent'
-            borderColor='red.500'
+            borderColor='#E53E3E'
             borderRadius='0'
             marginBottom='10px'
           />
@@ -129,14 +129,14 @@ export const PostForm = ({ setFormOpen }) => {
             value={ postContent }
             onChange={ ( e ) => setPostContent( e.target.value ) }
             placeholder={ `What's on your mind?` }
-            color='red.500'
+            color='#E53E3E'
             resize='vertical'
-            borderColor='red.500'
+            borderColor='#E53E3E'
             borderRadius='0'
           />
           <Button
-            color='gray.900'
-            backgroundColor='red.500'
+            color='#171923'
+            backgroundColor='#E53E3E'
             size='md'
             padding='0 30px'
             margin='10px'

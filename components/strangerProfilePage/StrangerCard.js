@@ -35,7 +35,7 @@ export const StrangerCard = ({ strangerData, userData, postLength }) => {
       direction='column'
       borderRight={{ lg: '1px solid' }}
       borderLeft={{ lg: '1px solid' }}
-      borderColor='red.500'
+      borderColor='#E53E3E'
     >
 
       <Flex
@@ -49,7 +49,7 @@ export const StrangerCard = ({ strangerData, userData, postLength }) => {
           alt={ strangerData.name }
           size='xl'
           borderWidth='5px'
-          borderColor='red.500'
+          borderColor='#E53E3E'
           borderStyle='double'
         />
         { returnBtn() }
@@ -79,12 +79,12 @@ export const StrangerCard = ({ strangerData, userData, postLength }) => {
       <Flex
         direction='row'
         justifyContent={{ base: 'space-around', lg: 'flex-start' }}
-        backgroundColor={{ base: 'gray.900', lg: 'transparent' }}
+        backgroundColor={{ base: '#171923', lg: 'transparent' }}
         padding='10px'
         size='sm'
         marginTop='10px'
         borderWidth={{ base: '1px 0 1px 0', lg: '0' }}
-        borderColor='red.500'
+        borderColor='#E53E3E'
       >
         <Button
           size='sm'

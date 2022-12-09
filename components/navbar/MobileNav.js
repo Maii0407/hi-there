@@ -40,21 +40,21 @@ export const MobileNav = ({ setFormOpen }) => {
       >
         <IconButton
           size='md'
-          icon={ mobileNavOpen ? <CloseIcon color={ 'red.500' }/> : <HamburgerIcon color={ 'red.500' }/> }
+          icon={ mobileNavOpen ? <CloseIcon color={ '#E53E3E' }/> : <HamburgerIcon color={ '#E53E3E' }/> }
           onClick={ () => handleNav() }
           backgroundColor='transparent'
         />
         <Text
           fontSize='md'
-          color='red.500'
+          color='#E53E3E'
         >
           hiTHERE
         </Text>
         <Button
           leftIcon={ <AddIcon/> }
-          color='gray.900' 
+          color='#171923' 
           size='sm' 
-          backgroundColor='red.500'
+          backgroundColor='#E53E3E'
           _hover
           onClick={ () => setFormOpen( true ) }
         >
@@ -79,7 +79,7 @@ export const MobileNav = ({ setFormOpen }) => {
                     key={ link.name }
                   >
                     <Link
-                      color='red.500'
+                      color='#E53E3E'
                       onClick={ () => setMobileNavOpen( false ) }
                     >
                       { link.name }

@@ -67,7 +67,7 @@ export const RequestCard = ({ requestData }) => {
       margin='5px'
       padding='5px 10px'
       border='1px'
-      borderColor='red.500'
+      borderColor='#E53E3E'
       borderRadius='5px'
     >
       <Avatar
@@ -86,7 +86,7 @@ export const RequestCard = ({ requestData }) => {
           passHref
         >
           <Link
-            color={ 'red.500' }
+            color={ '#E53E3E' }
             fontSize='15px'
             textAlign='center'
             padding={{ lg: '10px 0 5px' }}
@@ -102,7 +102,7 @@ export const RequestCard = ({ requestData }) => {
           <Button
             onClick={ () => acceptReq() }
             variant='solid'
-            backgroundColor='red.500'
+            backgroundColor='#E53E3E'
             size='sm'
             _hover
           >
@@ -111,8 +111,8 @@ export const RequestCard = ({ requestData }) => {
           <Button
             onClick={ () => rejectReq() }
             variant='outline'
-            borderColor='red.500'
-            color='red.500'
+            borderColor='#E53E3E'
+            color='#E53E3E'
             size='sm'
             _hover
           >

@@ -27,13 +27,13 @@ export default function RequestList({ currentUser }) {
       >
         <Flex
           borderBottom='5px'
-          borderColor='red.500'
+          borderColor='#E53E3E'
           borderStyle='double'
           padding='10px'
           margin='0 5px'
         >
           <Text
-            color='red.500'
+            color='#E53E3E'
           >
             Friend Requests - { currentUser.requestsReceived.length }
           </Text>
@@ -48,7 +48,7 @@ export default function RequestList({ currentUser }) {
           {
             noRequest ? (
               <Text
-                color='red.500'
+                color='#E53E3E'
                 width='100%'
                 textAlign='center'
                 marginTop='20px'
